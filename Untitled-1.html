@@ -1,0 +1,479 @@
+<div class="container">
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;"
+      >Identitas Pemohon</span
+    >
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="nik" class="col-md-3 control-label">NIK</label>
+      <div class="col-md-5">
+        <input
+          type="text"
+          class="form-control"
+          id="nik"
+          name="nik"
+          placeholder="Nomor KTP"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="paspor" class="col-md-3 control-label"
+        >Nomor Paspor (Jika Ada)</label
+      >
+      <div class="col-md-7">
+        <input
+          type="text"
+          class="form-control"
+          id="paspor"
+          name="paspor"
+          placeholder="Nomor Paspor"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="nama" class="col-md-3 control-label">Nama</label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          id="nama"
+          name="nama"
+          placeholder="Nama Sesuai KTP"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Tempat Lahir / Tanggal Lahir</label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="tempat_lahir"
+          name="tempat_lahir"
+          placeholder="Tempat Lahir"
+          required
+        />
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon-calender"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            id="tanggal_lahir"
+            name="tanggal_lahir"
+            placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Tinggal Di Indonesia</label>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon-calender"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            id="tinggal_dari"
+            name="tinggal_dari"
+            placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon-calender"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            id="tinggal_sampai"
+            name="tinggal_sampai"
+            placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Jenis Kelamin</label>
+      <div class="col-md-3">
+        <div class="radio radio-success">
+          <input
+            type="radio"
+            class="form-control"
+            name="jk"
+            id="jk"
+            value="LAKI-LAKI"
+            checked
+            required
+          />
+          <label for="jk">LAKI-LAKI</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="radio radio-success">
+          <input
+            type="radio"
+            class="form-control"
+            name="jk"
+            id="jk"
+            value="PEREMPUAN"
+          />
+          <label for="jk">PEREMPUAN</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Alamat</label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          name="nama_jalan"
+          id="nama_jalan"
+          class="form-control"
+          placeholder="Nama Jalan"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-2">
+        <div class="input-group">
+          <span class="input-group-addon">RT</span>
+          <input
+            type="text"
+            class="form-control"
+            id="rt"
+            name="rt"
+            placeholder="RT"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <span class="input-group-addon">RW</span>
+          <input
+            type="text"
+            class="form-control"
+            id="rw"
+            name="rw"
+            placeholder="RW"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-7">
+        <div class="input-group">
+          <span class="input-group-addon">Kota/Kab</span>
+          <select name="kota" id="kota" class="form-control" required>
+            <option value="">-- Pilih Kota/Kabupaten</option>
+            <?php foreach ($data['kabkota'] as $kabkota) : ?>
+            <option value="<?= $kabkota->id ?>"
+              ><?= $kabkota->nama_kabkota ?></option
+            >
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-7">
+        <div class="input-group">
+          <span class="input-group-addon">Kecamatan</span>
+          <select name="kecamatan" id="kecamatan" class="form-control" required>
+            <option value="">-- Pilih Kecamatan</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-7">
+        <div class="input-group">
+          <span class="input-group-addon">Kel/Desa</span>
+          <select name="kelurahan" id="kelurahan" class="form-control" required>
+            <option value="">-- Pilih Kelurahan/Desa</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Agama</label>
+      <div class="col-md-4">
+        <select name="agama" id="agama" class="form-control" required>
+          <option value="">-- Pilih Agama</option>
+          <option value="Islam">Islam</option>
+          <option value="Kristen Khatolik" lang="id">Kristen Khatolik</option>
+          <option value="Kristen Protestan" lang="id">Kristen Protestan</option>
+          <option value="Hindu">Hindu</option>
+          <option value="Budha">Budha</option>
+          <option value="Konhuchu">Konhuchu</option>
+          <option value="Kepercayaan Terhadap Tuhan YME" lang="id"
+            >Kepercayaan Terhadap Tuhan YME</option
+          >
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Pekerjaan</label>
+      <div class="col-md-5">
+        <input
+          type="text"
+          name="pekerjaan"
+          id="pekerjaan"
+          placeholder="Pekerjaan"
+          class="form-control"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4">
+        <h3 class="box-title">Foto EKTP <small>(Max Size 2Mb)</small></h3>
+        <input
+          type="file"
+          id="input-file-ktp"
+          class="dropify"
+          name="files"
+          data-max-file-size="2M"
+        />
+      </div>
+      <div class="col-md-4">
+        <h3 class="box-title">Sidik Jari EKTP <small>(Max Size 2Mb)</small></h3>
+        <input
+          type="file"
+          id="input-file-sidik-jari"
+          class="dropify"
+          name="files"
+          data-max-file-size="2M"
+        />
+      </div>
+      <div class="col-md-4">
+        <h3 class="box-title">Signature EKTP <small>(Max Size 2Mb)</small></h3>
+        <input
+          type="file"
+          id="input-file-signature"
+          class="dropify"
+          name="files"
+          data-max-file-size="2M"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;">nomor Skck</span>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="nomor_skck" class="col-md-3 control-label"
+        >Penomoran SKCK</label
+      >
+      <div class="col-md-6">
+        <input
+          type="text"
+          name="nomor_skck"
+          id="nomor_skck"
+          class="form-control"
+          placeholder="Nomor SKCK"
+          required
+        />
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary">Buat NO SKCK</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;"
+      >Catatan Kriminal</span
+    >
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="btnCekDataPusat" class="col-md-3 control-label"
+        >Cek Data Kriminal</label
+      >
+      <div class="col-md-4">
+        <button class="btn btn-primary" id="btnCekDataPusat">
+          Cek Data Pusat
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="catatan_kriminal" class="col-md-3 control-label"
+        >Catatan Kriminal</label
+      >
+      <div class="col-md-8">
+        <input
+          type="text"
+          name="catatan_kriminal"
+          id="catatan_kriminal"
+          class="form-control"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="catatan_kriminal_en" class="col-md-3 control-label"
+        >Catatan Kriminal (Inggris)</label
+      >
+      <div class="col-md-8">
+        <input
+          type="text"
+          name="catatan_kriminal_en"
+          id="catatan_kriminal_en"
+          class="form-control"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;"
+      >Keperluan Pemohon</span
+    >
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="keperluan" class="col-md-3 control-label">Keperluan</label>
+      <div class="col-md-8">
+        <select name="keperluan" id="keperluan" class="form-control" required>
+          <option value="">-- Pilih Keperluan</option>
+          <?php foreach ($data['keperluan'] as $keperluan) : ?>
+          <option value="<?= $keperluan->keperluan_nama ?>"
+            ><?= $keperluan->keperluan_nama ?></option
+          >
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;">Sidik Jari</span>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-md-3 control-label">Rumus Sidik Jari</label>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_1" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_2" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_3" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_4" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_5" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_6" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="" class="col-md-3 control-label"></label>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_7" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_8" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_9" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_10" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_11" required />
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="form-control" name="rumus_12" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="d-inline" style="background-color: #2cabe3; padding: 0.4em 1em;color:white;margin-bottom: 2.7rem">
+        <span style="text-transform: uppercase;font-weight: 800;">Digital Signature</span>
+    </div>
+    <div class="row">
+         Digital Signature 
+    </div> -->
+
+  <div
+    class="d-inline"
+    style="
+      background-color: #2cabe3;
+      padding: 0.4em 1em;
+      color: white;
+      margin-bottom: 2.7rem;
+    "
+  >
+    <span style="text-transform: uppercase; font-weight: 800;">Buat SKCK</span>
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-success">Buat SKCK Pemohon</button>
+    </div>
+  </div>
+</div>

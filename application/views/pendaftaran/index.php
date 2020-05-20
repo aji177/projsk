@@ -8,6 +8,16 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="app" class="text-dark">
+                    <app-nav></app-nav>
+                    <app-head></app-head>
+                    <form action="" method="post">
+                        <div class="tab-content">
+                            <component :is="view"></component>
+                        </div>
+                    </form>
+                </div>
+
                 <?php $this->load->view('pendaftaran/nav-pills') ?>
                 <?php $this->load->view('pendaftaran/tab-content') ?>
             </div>

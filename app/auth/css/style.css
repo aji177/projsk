@@ -1,0 +1,52 @@
+:root {
+  --secondary: #f7f7f7;
+}
+
+* {
+  font-family: "Courier New", Courier, monospace;
+}
+
+main#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--secondary);
+}
+
+main#wrapper > img.img-wrapper {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 3vh;
+}
+
+main#wrapper > form#login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background-color: white;
+  padding: 15px;
+}
+
+form#login-form > h2 {
+  margin: 0px;
+  padding-bottom: 10px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+div.form-group > label.control-label {
+  text-transform: uppercase;
+}
+
+div.form-group > label.error {
+  color: #a94442;
+  padding-top: 0.2em;
+}
+
+div.form-group > label.error:focus {
+  color: #843534;
+  padding-top: 0.2em;
+}

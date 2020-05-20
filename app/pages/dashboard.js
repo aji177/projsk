@@ -1,0 +1,121 @@
+$(() => {
+  var harian = Morris.Area({
+    element: "harian",
+    data: [
+      {
+        tanggal: "2010",
+        online: 50,
+        offline: 80,
+        cetak: 50,
+      },
+      {
+        tanggal: "2011",
+        online: 130,
+        offline: 100,
+        cetak: 80,
+      },
+      {
+        tanggal: "2012",
+        online: 80,
+        offline: 60,
+        cetak: 70,
+      },
+      {
+        tanggal: "2013",
+        online: 70,
+        offline: 200,
+        cetak: 140,
+      },
+      {
+        tanggal: "2014",
+        online: 180,
+        offline: 150,
+        cetak: 150,
+      },
+      {
+        tanggal: "2015",
+        online: 105,
+        offline: 105,
+        cetak: 80,
+      },
+      {
+        tanggal: "2016",
+        online: 50,
+        offline: 200,
+        cetak: 100,
+      },
+    ],
+    xkey: "tanggal",
+    ykeys: ["online", "offline", "cetak"],
+    labels: ["Online", "Offline", "Total Cetak"],
+    pointSize: 3,
+    fillOpacity: 0,
+    pointStrokeColors: ["#00bfc7", "#fdc006", "#9675ce"],
+    behaveLikeLine: true,
+    gridLineColor: "#e0e0e0",
+    lineWidth: 1,
+    hideHover: "auto",
+    lineColors: ["#00bfc7", "#fdc006", "#9675ce"],
+    resize: true,
+  });
+
+  Morris.Area({
+    element: "bulanan",
+    data: [
+      {
+        period: "2010",
+        online: 50,
+        offline: 80,
+        cetak: 20,
+      },
+      {
+        period: "2011",
+        online: 130,
+        offline: 100,
+        cetak: 80,
+      },
+      {
+        period: "2012",
+        online: 80,
+        offline: 60,
+        cetak: 70,
+      },
+      {
+        period: "2013",
+        online: 70,
+        offline: 200,
+        cetak: 140,
+      },
+      {
+        period: "2014",
+        online: 180,
+        offline: 150,
+        cetak: 140,
+      },
+      {
+        period: "2015",
+        online: 105,
+        offline: 100,
+        cetak: 105,
+      },
+      {
+        period: "2016",
+        online: 150,
+        offline: 200,
+        cetak: 200,
+      },
+    ],
+    xkey: "period",
+    ykeys: ["online", "offline", "cetak"],
+    labels: ["Online", "Offline", "Total Cetak"],
+    pointSize: 3,
+    fillOpacity: 0,
+    pointStrokeColors: ["#00bfc7", "#fdc006", "#9675ce"],
+    behaveLikeLine: true,
+    gridLineColor: "#e0e0e0",
+    lineWidth: 1,
+    hideHover: "auto",
+    lineColors: ["#00bfc7", "#fdc006", "#9675ce"],
+    resize: true,
+  });
+});

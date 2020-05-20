@@ -33,16 +33,6 @@
     <!-- Favicon  -->
     <link rel="icon" href="<?= base_url('src/') ?>images/logo-polres.png">
 
-    <!-- Scripts -->
-    <script src="<?= base_url('src/') ?>js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-    <script src="<?= base_url('src/') ?>js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-    <script src="<?= base_url('src/') ?>js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-    <script src="<?= base_url('src/') ?>js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-    <script src="<?= base_url('src/') ?>js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-    <script src="<?= base_url('src/') ?>js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-    <script src="<?= base_url('src/') ?>js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
-    <script src="<?= base_url('src/') ?>js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-    <script src="<?= base_url('src/') ?>js/scripts.js"></script> <!-- Custom scripts -->
 </head>
 
 <body data-spy="scroll" data-target=".fixed-top">
@@ -94,7 +84,7 @@
                     <a class="nav-link page-scroll" href="#contact">CONTACT</a>
                 </li>
                 <li class="nav-item">
-                    <button class="btn-solid-reg" data-toggle="modal" data-target="#pendaftaran">PENDAFTARAN</button>
+                    <a class="btn btn-solid-reg" href="">PENDAFTARAN</a>
                 </li>
 
             </ul>
@@ -154,16 +144,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2020 <a href="https://inovatik.com">SKCK Online Banda Aceh</a> - All rights reserved</p>
+                    <p class="p-small">Copyright © 2020 <a href="<?= base_url() ?>">SKCK Online Banda Aceh</a> - All rights reserved</p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->
     </div> <!-- end of copyright -->
     <!-- end of copyright -->
 
-    <?php $this->load->view($modal);
-    ?>
-
+    <!-- Scripts -->
+    <script src="<?= base_url('src/') ?>js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="<?= base_url('src/') ?>js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="<?= base_url('src/') ?>js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="<?= base_url('src/') ?>js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="<?= base_url('src/') ?>js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="<?= base_url('src/') ?>js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="<?= base_url('src/') ?>js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
+    <script src="<?= base_url('src/') ?>js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="<?= base_url('src/') ?>js/scripts.js"></script> <!-- Custom scripts -->
 </body>
 
 </html>
