@@ -53,11 +53,12 @@
                         <div class="white-box">
                             <h3 class="box-title text-center">Cari Data SKCK</h3>
                             <form class="form-group" method="POST" enctype="multipart/form-data" action="<?= base_url('pelayanan/multiple_file') ?>">
-                                <input type="file" name="file[]" id="file">
-                                <input type="file" name="file[]">
-                                <input type="file" name="file[]">
+                                <input type="file" name="file1">
+                                <input type="file" name="file2[]">
+                                <input type="file" name="file2[]">
                                 <button type="submit">submit</button>
                             </form>
+                            <img id="img" src="<?= base_url('pelayanan/image/1/contoh') ?>" alt="" srcset="">
                         </div>
                     </div>
                 </div>
@@ -78,6 +79,7 @@
     <script src="<?= base_url('app/') ?>js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="<?= base_url('app/') ?>js/waves.js"></script>
+
 </body>
 
 </html>

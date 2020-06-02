@@ -73,11 +73,13 @@ class Pelayanan extends CI_Controller
 
     public function template_skck()
     {
-        if (!$this->Login_model->pelayanan_session()) {
+        if (!$this->Login_model->pelayanan_session()) :
             redirect(base_url('pelayanan/login'));
-        }
+        endif;
         $data = [
-            'title' => 'Template SKCK'
+            'title' => 'Template SKCK',
+            'data' => $this->db->order_by('id_template', 'DESC')
+                ->get('template_skck', 1)->row_array(),
         ];
         $this->load->view('admin/template-skck', $data);
     }
@@ -109,6 +111,32 @@ class Pelayanan extends CI_Controller
             'title' => 'User Managemnt'
         ];
         $this->load->view('admin/user-management', $data);
+    }
+
+    public function print($id_skck = 0)
+    {
+        if (!$this->Login_model->pelayanan_session()) {
+            redirect(base_url('pelayanan/login'));
+        } else {
+            if ($id_skck == 0) {
+                $this->session->set_flashdata('error', "Mohon Isi data terlebih dahulu.");
+                redirect(base_url('pelayanan/buat_skck_offline'));
+            }
+            $this->load->model('SKCK_model', 'skck');
+
+            $skck = $this->skck->getSKCKOffline($id_skck);
+            $nomor = $this->skck->getNomorSKCK($skck->nomor);
+
+            $data = [
+                'title' => 'Print Skck',
+                'skck' => $skck,
+                'nomor_skck' => $nomor->format,
+                'template' => $this->db->order_by('id_template', 'DESC')
+                    ->get('template_skck', 1)->row_object(),
+            ];
+
+            $this->load->view('admin/print-view', $data);
+        }
     }
 
     /**
@@ -167,59 +195,97 @@ class Pelayanan extends CI_Controller
     // Logical Input Data
     public function input_skck_offline()
     {
-        $data = [
-            'nomor' => $this->input->post('nomor_skck'),
-            'no_ktp' => $this->input->post('nik'),
-            'paspor' => $this->input->post('paspor'),
-            'nama' => $this->input->post('nama'),
-            'jk' => $this->input->post('jk'),
-            'kebangsaan' => 'Indonesia',
-            'agama' => $this->input->post('agama'),
-            'tempat_lahir' => $this->input->post('tempat_lahir'),
-            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'alamat' => $this->input->post('nama_jalan')
-                . ' RT ' . $this->input->post('rt')
-                . '/ RW ' .  $this->input->post('rw')
-                . ', Kel. ' .  $this->db->select('nama_desa')
-                    ->from('desa')->where('id', $this->input->post('kelurahan'))
-                    ->get()->row_array()['nama_desa']
-                . ', Kec. ' .  $this->db->select('nama_kecamatan')
-                    ->from('kecamatan')->where('id', $this->input->post('kecamatan'))
-                    ->get()->row_array()['nama_kecamatan']
-                . ', ' .  $this->db->select('nama_kabkota')
-                    ->from('kabkota')->where('id', $this->input->post('kota'))
-                    ->get()->row_array()['nama_kabkota'],
-            'pekerjaan' => $this->input->post('pekerjaan'),
-            '1_rumus_jari' => $this->input->post('rumus_1'),
-            '2_rumus_jari' => $this->input->post('rumus_2'),
-            '3_rumus_jari' => $this->input->post('rumus_3'),
-            '4_rumus_jari' => $this->input->post('rumus_4'),
-            '5_rumus_jari' => $this->input->post('rumus_5'),
-            '6_rumus_jari' => $this->input->post('rumus_6'),
-            '7_rumus_jari' => $this->input->post('rumus_7'),
-            '8_rumus_jari' => $this->input->post('rumus_8'),
-            '9_rumus_jari' => $this->input->post('rumus_9'),
-            '10_rumus_jari' => $this->input->post('rumus_10'),
-            '11_rumus_jari' => $this->input->post('rumus_11'),
-            '12_rumus_jari' => $this->input->post('rumus_12'),
-            'berada_di_indonesia_dari' => $this->input->post('tinggal_dari'),
-            'keperluan' => $this->input->post('keperluan'),
-        ];
-        $respon = $this->db->insert('data_skck_offline', $data);
-
+        $nomor = explode('/', $this->input->post('nomor_skck'));
+        $romawi = $this->db->get_where('bulan_romawi', ['id' => date('n')])->row_object()->romawi;
+        $respon = $this->db->insert('no_skck', [
+            'no_skck' => $nomor[2],
+            'bulan' => $romawi,
+            'tahun' => date('Y'),
+            'divisi' => $nomor[6],
+            'format' => $this->input->post('nomor_skck'),
+            'create_at' => time()
+        ]);
+        $id_nomor_skck = $this->db->insert_id();
         if ($respon > 0) {
-            $nomor = explode('/', $data['nomor']);
-            $romawi = $this->db->get_where('bulan_romawi', ['id' => date('n')])->row_object()->romawi;
-            $respon = $this->db->insert('no_skck', [
-                'no_skck' => $nomor[2],
-                'bulan' => $romawi,
-                'tahun' => date('Y'),
-                'divisi' => $nomor[6],
-                'format' => $data['nomor'],
-                'create_at' => time()
-            ]);
-            $this->session->set_flashdata('success', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Atas nama Sdr. " . $this->input->post('nama') . " Berhasil dibuat.");
-            redirect(base_url('pelayanan/buat_skck_offline'));
+            $data = [
+                'nomor' => $this->db->insert_id(),
+                'no_ktp' => $this->input->post('nik'),
+                'paspor' => $this->input->post('paspor'),
+                'nama' => $this->input->post('nama'),
+                'jk' => $this->input->post('jk'),
+                'kebangsaan' => 'Indonesia',
+                'agama' => $this->input->post('agama'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'alamat' => $this->input->post('nama_jalan')
+                    . ' RT ' . $this->input->post('rt')
+                    . '/ RW ' .  $this->input->post('rw')
+                    . ', Kel. ' .  $this->db->select('nama_desa')
+                        ->from('desa')->where('id', $this->input->post('kelurahan'))
+                        ->get()->row_array()['nama_desa']
+                    . ', Kec. ' .  $this->db->select('nama_kecamatan')
+                        ->from('kecamatan')->where('id', $this->input->post('kecamatan'))
+                        ->get()->row_array()['nama_kecamatan']
+                    . ', ' .  $this->db->select('nama_kabkota')
+                        ->from('kabkota')->where('id', $this->input->post('kota'))
+                        ->get()->row_array()['nama_kabkota'],
+                'pekerjaan' => $this->input->post('pekerjaan'),
+                'rumus_1_jari' => $this->input->post('rumus_1'),
+                'rumus_2_jari' => $this->input->post('rumus_2'),
+                'rumus_3_jari' => $this->input->post('rumus_3'),
+                'rumus_4_jari' => $this->input->post('rumus_4'),
+                'rumus_5_jari' => $this->input->post('rumus_5'),
+                'rumus_6_jari' => $this->input->post('rumus_6'),
+                'rumus_7_jari' => $this->input->post('rumus_7'),
+                'rumus_8_jari' => $this->input->post('rumus_8'),
+                'rumus_9_jari' => $this->input->post('rumus_9'),
+                'rumus_10_jari' => $this->input->post('rumus_10'),
+                'rumus_11_jari' => $this->input->post('rumus_11'),
+                'rumus_12_jari' => $this->input->post('rumus_12'),
+                'berada_di_indonesia_dari' => $this->input->post('tinggal_dari'),
+                'keperluan' => $this->input->post('keperluan'),
+                'catatan_kriminal' => '',
+                'catatan_kriminal_en' => ''
+            ];
+            $respon = $this->db->insert('data_skck_offline', $data);
+
+            if ($respon > 0) {
+                $id = $this->db->insert_id();
+                mkdir(FCPATH . 'uploads/' . "$id/", 0777, true);
+                $simpan = $this->input->post('simpan');
+
+                if ($simpan == 'simpan') {
+                    $sidik_jari = [
+                        'ibu_jari_kanan',
+                        'telunjuk_jari_kanan',
+                        'jari_tengah_kanan',
+                        'jari_manis_kanan',
+                        'jari_kelingking_kanan',
+                        'ibu_jari_kiri',
+                        'telunjuk_jari_kiri',
+                        'jari_tengah_kiri',
+                        'jari_manis_kiri',
+                        'jari_kelingking_kiri',
+                    ];
+                    for ($i = 0; $i <= count($sidik_jari); $i++) :
+                        $this->upload($sidik_jari[$i], $id);
+                    endfor;
+                }
+
+                $this->upload('foto_ktp', $id);
+                $this->upload('ktp', $id);
+                $this->upload('sidik_ktp', $id);
+                $this->upload('signature_ktp', $id);
+                $this->upload('lampiran_ktp', $id);
+                $this->upload('lampiran_kk', $id);
+                $this->upload('lampiran_ijazah', $id);
+                $this->session->set_flashdata('success', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Atas nama Sdr. " . $this->input->post('nama') . " Berhasil dibuat.");
+                redirect(base_url('pelayanan/print/' . $id));
+            } else {
+                $this->db->delete('no_skck', ['id_no_skck' => $id_nomor_skck]);
+                $this->session->set_flashdata('error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.");
+                redirect(base_url('pelayanan/buat_skck_offline'));
+            }
         } else {
             $this->session->set_flashdata('error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.");
             redirect(base_url('pelayanan/buat_skck_offline'));
@@ -228,32 +294,68 @@ class Pelayanan extends CI_Controller
 
     public function multiple_file()
     {
-        $files_num = sizeof($_FILES['file']['tmp_name']);
-        $files = $_FILES['file'];
-        $data = [];
 
-        $config['upload_path'] = FCPATH . 'uploads/';
-        $config['allowed_types'] = 'gif|jpg|png|pdf';
-        $config['max_size']  = '4000';
-        for ($i = 0; $i < $files_num; $i++) {
+        $this->upload('file1', 1);
+        echo '<br>';
+        $this->upload('file2', 1);
+    }
 
-            $_FILES['file']['name'] = $files['name'][$i];
-            $_FILES['file']['type'] = $files['type'][$i];
-            $_FILES['file']['tmp_name'] = $files['tmp_name'][$i];
-            $_FILES['file']['error'] = $files['error'][$i];
-            $_FILES['file']['size'] = $files['size'][$i];
 
-            $this->upload->initialize($config);
-            if ($this->upload->do_upload('file')) {
-                array_push($data, $_FILES['file']['name']);
+    private function upload(string $file, int $id_skck)
+    {
+        $upload = $_FILES[$file];
+
+        if ($upload['name'] != null) {
+            if (is_array($upload['name'])) {
+                $files_num = sizeof($upload['tmp_name']);
+
+                $config['upload_path'] = FCPATH . 'uploads/' . "$id_skck/";
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+                $config['max_size']  = '4000';
+                for ($i = 0; $i < $files_num; $i++) {
+                    if ($upload['name'][$i] != null) {
+                        $_FILES[$file]['name'] = $upload['name'][$i];
+                        $_FILES[$file]['type'] = $upload['type'][$i];
+                        $_FILES[$file]['tmp_name'] = $upload['tmp_name'][$i];
+                        $_FILES[$file]['error'] = $upload['error'][$i];
+                        $_FILES[$file]['size'] = $upload['size'][$i];
+
+                        $this->upload->initialize($config);
+                        if ($this->upload->do_upload($file)) {
+                            $this->db->insert('lampiran', [
+                                'id_skck' => $id_skck,
+                                'file' => $this->upload->data()['file_name'],
+                                'name' => $file
+                            ]);
+                            echo "success";
+                        } else {
+                            $error = array('error' => $this->upload->display_errors());
+                            print_r($error);
+                        }
+                    }
+                }
             } else {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
+                $config['upload_path'] = FCPATH . 'uploads/' . "$id_skck/";
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+                $config['max_size']  = '4000';
+
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload($file)) {
+                    $error = array('error' => $this->upload->display_errors());
+                    print_r($error);
+                } else {
+                    $this->db->insert('lampiran', [
+                        'id_skck' => $id_skck,
+                        'file' => $this->upload->data()['file_name'],
+                        'name' => $file
+                    ]);
+                    echo "success";
+                }
             }
         }
-
-        print_r($data);
     }
+
+
 
     public function generate_skck()
     {
@@ -285,6 +387,46 @@ class Pelayanan extends CI_Controller
             $this->session->set_flashdata('success', "Nomor $input_no_skck telah dibuat Jam " . date('d F Y, H:i:s', time()));
             redirect(base_url('pelayanan/generate_no_skck'));
         endif;
+    }
+
+    public function image($id_skck, $name)
+    {
+        $data = $this->db->get_where('lampiran', [
+            'id_skck' => $id_skck,
+            'name' => $name
+        ])->row_object();
+        echo file_get_contents(base_url('uploads/' . $id_skck . '/' . $data->file), true);
+    }
+
+    public function input_template_skck()
+    {
+        if (!isset($_POST['daerah_satuan'])) {
+            redirect(base_url('pelayanan/template_skck'));
+        }
+
+        $data = [
+            'daerah_satuan' => $this->input->post('daerah_satuan'),
+            'resor_satuan' => $this->input->post('resor_satuan'),
+            'alamat_satuan' => $this->input->post('alamat_satuan'),
+            'atas_nama' => $this->input->post('atas_nama'),
+            'satuan_kepala' => $this->input->post('satuan_kepala'),
+            'pejabat' => $this->input->post('pejabat'),
+            'jabatan' => $this->input->post('jabatan'),
+            'pernyataan_id' => $this->input->post('pernyataan_id'),
+            'pernyataan_en' => $this->input->post('pernyataan_en'),
+            'lokasi_cetak' => $this->input->post('lokasi_cetak'),
+            'skck_berlaku' => $this->input->post('skck_berlaku'),
+        ];
+
+        $respon = $this->db->insert('template_skck', $data);
+
+        if ($respon > 0) {
+            $this->session->set_flashdata('success', "Data Template SKCK Berhasil diperbarui.");
+            redirect(base_url('pelayanan/template_skck'));
+        } else {
+            $this->session->set_flashdata('error', "Data Template SKCK Gagal diperbarui");
+            redirect(base_url('pelayanan/template_skck'));
+        }
     }
 }
 

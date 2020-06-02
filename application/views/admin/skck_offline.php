@@ -97,8 +97,13 @@
                                             Digital Signature
                                         </h6>
                                     </li>
+                                    <li role="tab">
+                                        <h6>
+                                            Lampiran
+                                        </h6>
+                                    </li>
                                 </ul>
-                                <form id="validation" action="<?= base_url('pelayanan/input_skck_offline') ?>" method="POST" class="form-horizontal" autocomplete="off">
+                                <form id="validation" action="<?= base_url('pelayanan/input_skck_offline') ?>" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off" target="_blank">
                                     <div class="wizard-content">
 
                                         <div class="wizard-pane active" role="tabpanel">
@@ -119,7 +124,7 @@
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Nama</label>
                                                         <div class="col-xs-7">
-                                                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Sesuai KTP" />
+                                                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Sesuai AKTE / IJAZAH" required />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -142,7 +147,7 @@
                                                         <div class="col-xs-7">
                                                             <div class="input-group date-container">
                                                                 <span id="td-container" class="input-group-addon"><i class="icon-calender"></i></span>
-                                                                <input type="text" class="form-control date-pick-control" id="tinggal_dari" name="tinggal_dari" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" required />
+                                                                <input type="text" class="form-control date-pick-control" id="tinggal_dari" name="tinggal_dari" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -151,7 +156,7 @@
                                                         <div class="col-xs-7">
                                                             <div class="input-group date-container">
                                                                 <span id="ts-container" class="input-group-addon"><i class="icon-calender"></i></span>
-                                                                <input type="text" class="form-control date-pick-control" id="tinggal_sampai" name="tinggal_sampai" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" value="<?= date('Y-m-d') ?>" required />
+                                                                <input type="text" class="form-control date-pick-control" id="tinggal_sampai" name="tinggal_sampai" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" value="<?= date('Y-m-d') ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -159,7 +164,7 @@
                                                         <label class="col-xs-3 control-label">Jenis Kelamin</label>
                                                         <div class="col-xs-2">
                                                             <div class="radio radio-success">
-                                                                <input type="radio" class="form-control" name="jk" id="jk" value="LAKI-LAKI" checked required />
+                                                                <input type="radio" class="form-control" name="jk" id="jk" value="LAKI-LAKI" checked />
                                                                 <label for="jk">LAKI-LAKI</label>
                                                             </div>
                                                         </div>
@@ -181,13 +186,13 @@
                                                         <div class="col-xs-2">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">RT</span>
-                                                                <input type="text" class="form-control" id="rt" name="rt" placeholder="RT" required />
+                                                                <input type="text" class="form-control" id="rt" name="rt" placeholder="RT" />
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-2">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">RW</span>
-                                                                <input type="text" class="form-control" id="rw" name="rw" placeholder="RW" required />
+                                                                <input type="text" class="form-control" id="rw" name="rw" placeholder="RW" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -252,15 +257,15 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Foto EKTP</label>
-                                                        <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                        <input type="file" id="input-file-ktp" class="dropify" name="ktp" data-max-file-size="2M" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Sidik Jari EKTP</label>
-                                                        <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                        <input type="file" id="input-file-ktp" class="dropify" name="sidik_ktp" data-max-file-size="2M" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Signature EKTP</label>
-                                                        <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                        <input type="file" id="input-file-ktp" class="dropify" name="signature_ktp" data-max-file-size="2M" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +333,7 @@
                                             <div class="form-group">
                                                 <label class="col-xs-3 control-label">Foto Pemohon</label>
                                                 <div class="col-xs-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="foto_ktp" data-max-file-size="2M" />
                                                 </div>
                                             </div>
                                         </div>
@@ -340,38 +345,47 @@
                                                     <button class="btn btn-primary">Start Fingerprint</button>
                                                 </div>
                                             </div>
-                                            <div class="row" style="margin-bottom: 2em">
-                                                <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                            <div class="form-group">
+                                                <label class="col-xs-3 control-label">Simpan Sidik Jari</label>
+                                                <div class="col-xs-2">
+                                                    <div class="radio radio-success">
+                                                        <input type="checkbox" class="form-control" name="simpan" id="simpan" value="simpan" checked />
+                                                        <label for="simpan">Simpan</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-bottom: 2em">
                                                 <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="ibu_jari_kanan" data-max-file-size="2M" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="telunjuk_jari_kanan" data-max-file-size="2M" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_tengah_kanan" data-max-file-size="2M" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_manis_kanan" data-max-file-size="2M" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_kelingking_kanan" data-max-file-size="2M" />
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 2em">
+                                                <div class="col-md-2">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="ibu_jari_kiri" data-max-file-size="2M" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="telunjuk_jari_kiri" data-max-file-size="2M" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_tengah_kiri" data-max-file-size="2M" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_manis_kiri" data-max-file-size="2M" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="jari_kelingking_kiri" data-max-file-size="2M" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -434,6 +448,29 @@
                                                     <input type="file" id="input-file-ktp" class="dropify" name="files" data-max-file-size="2M" />
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class="wizard-pane" role="tabpanel">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Lampiran EKTP</label>
+                                                <div class="col-xs-3">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ktp" data-max-file-size="2M" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Lampiran KK</label>
+                                                <div class="col-xs-3">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_kk" data-max-file-size="2M" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Ijazah</label>
+                                                <div class="col-xs-3">
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ijazah" data-max-file-size="2M" />
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary" type="submit">Buat SKCK</button>
                                         </div>
 
                                     </div>
@@ -566,37 +603,47 @@
             })
 
             $("#exampleValidator").wizard({
-                // onInit: function() {
-                //     $("#validation").formValidation({
-                //         framework: "bootstrap",
-                //         fields: {
-                //             nik: validators,
-                //             tempat_lahir: validators,
-                //             tanggal_lahir: validators,
-                //             tinggal_dari: validators,
-                //             tinggal_sampai: validators,
-                //             nama_jalan: validators,
-                //             rt: validators,
-                //             rw: validators,
-                //             kota: validators,
-                //             kecamatan: validators,
-                //             kelurahan: validators,
-                //             agama: validators,
-                //             pekerjaan: validators,
-                //         },
-                //     });
-                // },
-                // validator: function() {
-                //     var fv = $("#validation").data("formValidation");
-                //     var $this = $(this);
-                //     // Validate the container
-                //     fv.validateContainer($this);
-                //     var isValidStep = fv.isValidContainer($this);
-                //     if (isValidStep === false || isValidStep === null) {
-                //         return false;
-                //     }
-                //     return true;
-                // },
+                onInit: function() {
+                    $("#validation").formValidation({
+                        framework: "bootstrap",
+                        fields: {
+                            nik: validators,
+                            tempat_lahir: validators,
+                            tanggal_lahir: validators,
+                            nama_jalan: validators,
+                            kota: validators,
+                            kecamatan: validators,
+                            kelurahan: validators,
+                            agama: validators,
+                            pekerjaan: validators,
+                            nomor_skck: validators,
+                            keperluan: validators,
+                            rumus_1: validators,
+                            rumus_2: validators,
+                            rumus_3: validators,
+                            rumus_4: validators,
+                            rumus_5: validators,
+                            rumus_6: validators,
+                            rumus_7: validators,
+                            rumus_8: validators,
+                            rumus_9: validators,
+                            rumus_10: validators,
+                            rumus_11: validators,
+                            rumus_12: validators,
+                        },
+                    });
+                },
+                validator: function() {
+                    var fv = $("#validation").data("formValidation");
+                    var $this = $(this);
+                    // Validate the container
+                    fv.validateContainer($this);
+                    var isValidStep = fv.isValidContainer($this);
+                    if (isValidStep === false || isValidStep === null) {
+                        return false;
+                    }
+                    return true;
+                },
                 onFinish: function() {
                     $("#validation").submit();
                     swal(

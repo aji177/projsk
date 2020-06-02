@@ -1,0 +1,252 @@
+@media print {
+  * {
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  html,
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  header.head {
+    width: 100%;
+    padding-top: 11pt;
+    padding-left: 1.4cm;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  header.head .cops {
+    width: 10cm;
+    border-bottom: 1px solid black;
+  }
+
+  header.head .cops p {
+    padding: 0px;
+    margin: 0px;
+    font-size: 11pt;
+    text-align: center;
+    letter-spacing: 1pt;
+  }
+
+  header.head .info {
+    margin-left: 3cm;
+    padding: 8px;
+    font-family: "Times New Roman", Times, serif;
+    border: 1px solid black;
+  }
+
+  section.body {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 10pt;
+  }
+
+  section.body header {
+    display: block;
+    margin-top: 80pt;
+    margin-bottom: 10pt;
+  }
+
+  section.body header p {
+    padding: 0px;
+    margin: 0px;
+    font-size: 11pt;
+    text-align: center;
+    letter-spacing: 1pt;
+  }
+
+  section.body header p#id {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  section.body header p#en {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  section.body header p#nSurat {
+    font-size: 10pt;
+  }
+
+  section.body article {
+    width: 100%;
+    padding-left: 1.4cm;
+    font-size: 10pt;
+  }
+
+  section.body article p {
+    padding: 0;
+    margin: 0;
+  }
+
+  section.body article p#en {
+    font-style: italic;
+  }
+
+  table#bio tr td:first-child:not([colspan="3"]),
+  table#keperluan tr td:first-child:not([colspan="3"]),
+  table#tgl tr td:first-child:not([colspan="3"]) {
+    width: 6.85cm;
+  }
+
+  table#sidik-jari {
+    width: 6.85cm;
+    border-collapse: collapse;
+  }
+
+  table#sidik-jari,
+  th {
+    font-weight: lighter;
+    border: 0.5pt solid #000;
+  }
+
+  table#sidik-jari th {
+    padding: 2pt;
+  }
+
+  table tr td {
+    vertical-align: top;
+  }
+
+  section.body .keterangan {
+    width: 100%;
+    display: block;
+  }
+
+  ol {
+    padding: 0;
+    margin-left: 2cm;
+    margin-bottom: 0;
+  }
+
+  ol li {
+    padding-left: 0.3cm;
+  }
+
+  section.body .keterangan p.ket,
+  section.body .keterangan table#bio {
+    margin-left: 1.6cm;
+  }
+
+  section.body .keterangan table#bio tr td table {
+    border: 1px solid #000;
+  }
+
+  section.body .keterangan p.ket {
+    font-weight: bold;
+  }
+
+  section.body .keterangan p.ket#id {
+    text-decoration: underline;
+  }
+
+  section.body .keterangan2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10pt;
+  }
+
+  section.body .signature-area {
+    width: 100%;
+    position: fixed;
+    margin-left: 9cm;
+  }
+
+  section.body .signature-area .signature-box {
+    width: 11cm;
+  }
+
+  .signature-box table {
+    margin-left: 0.5cm;
+    width: 100%;
+  }
+  .signature-box hr {
+    border-color: #000;
+  }
+  .signature-box table tr td:first-child {
+    width: 3.5cm;
+  }
+  .signature-box .signature-content {
+    width: 11cm;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .signature-content p.an {
+    font-size: 11pt;
+    font-weight: bold;
+    word-wrap: break-word;
+    margin-bottom: 2.3cm;
+  }
+
+  .signature-content p.nama {
+    font-size: 11pt;
+    font-weight: bold;
+    word-wrap: break-word;
+  }
+
+  .signature-content p.jabatan {
+    font-size: 11pt;
+    font-weight: bold;
+    word-wrap: break-word;
+  }
+
+  .signature-content hr {
+    max-width: 6.3cm;
+    border: 1px solid #000;
+  }
+
+  main#print .photo-area {
+    top: 29.5cm;
+    width: 4cm;
+    height: 6cm;
+    position: absolute;
+    margin-left: 8.5cm;
+  }
+
+  main#print .photo-area img {
+    width: 4cm;
+    height: 6cm;
+    position: absolute;
+  }
+
+  main#print .note {
+    top: 31.5cm;
+    position: absolute;
+    width: 5.05cm;
+    display: block;
+    font-size: 9pt;
+    padding: 10pt;
+  }
+
+  main#print .note p {
+    padding: 0pt;
+    margin: 0pt;
+    word-wrap: normal;
+  }
+
+  main#print .note p#head {
+    font-weight: bold;
+  }
+
+  main#print .note p#en {
+    font-style: italic;
+  }
+}
+
+@page {
+  size: Legal portrait;
+  margin-top: 0.3cm;
+  margin-left: 0.63cm;
+  margin-bottom: 1.2cm;
+  margin-right: 0.16cm;
+}

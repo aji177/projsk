@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20 Mei 2020 pada 15.36
+-- Generation Time: 03 Jun 2020 pada 01.47
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -111,7 +111,7 @@ CREATE TABLE `data_sidik_jari` (
 
 CREATE TABLE `data_skck_offline` (
   `id_skck` int(11) NOT NULL,
-  `nomor` varchar(128) NOT NULL,
+  `nomor` int(11) NOT NULL,
   `no_ktp` varchar(20) NOT NULL,
   `paspor` varchar(128) NOT NULL,
   `nama` varchar(128) NOT NULL,
@@ -122,23 +122,25 @@ CREATE TABLE `data_skck_offline` (
   `tanggal_lahir` date NOT NULL,
   `Alamat` text NOT NULL,
   `pekerjaan` varchar(128) NOT NULL,
-  `1_rumus_jari` varchar(20) NOT NULL,
-  `2_rumus_jari` varchar(20) NOT NULL,
-  `3_rumus_jari` varchar(20) NOT NULL,
-  `4_rumus_jari` varchar(20) NOT NULL,
-  `5_rumus_jari` varchar(20) NOT NULL,
-  `6_rumus_jari` varchar(20) NOT NULL,
-  `7_rumus_jari` varchar(20) NOT NULL,
-  `8_rumus_jari` varchar(20) NOT NULL,
-  `9_rumus_jari` varchar(20) NOT NULL,
-  `10_rumus_jari` varchar(20) NOT NULL,
-  `11_rumus_jari` varchar(20) NOT NULL,
-  `12_rumus_jari` varchar(20) NOT NULL,
+  `rumus_1_jari` varchar(20) NOT NULL,
+  `rumus_2_jari` varchar(20) NOT NULL,
+  `rumus_3_jari` varchar(20) NOT NULL,
+  `rumus_4_jari` varchar(20) NOT NULL,
+  `rumus_5_jari` varchar(20) NOT NULL,
+  `rumus_6_jari` varchar(20) NOT NULL,
+  `rumus_7_jari` varchar(20) NOT NULL,
+  `rumus_8_jari` varchar(20) NOT NULL,
+  `rumus_9_jari` varchar(20) NOT NULL,
+  `rumus_10_jari` varchar(20) NOT NULL,
+  `rumus_11_jari` varchar(20) NOT NULL,
+  `rumus_12_jari` varchar(20) NOT NULL,
   `berada_di_indonesia_dari` date NOT NULL,
   `keperluan` varchar(128) NOT NULL,
   `tgl_berlaku_dari` date NOT NULL,
   `tgl_berlaku_sampai` date NOT NULL COMMENT '6 Bulan Sejak Tgl Berlaku dari di buat',
   `dikeluarkan` varchar(128) NOT NULL,
+  `catatan_kriminal` varchar(128) NOT NULL,
+  `catatan_kriminal_en` varchar(128) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -146,12 +148,19 @@ CREATE TABLE `data_skck_offline` (
 -- Dumping data untuk tabel `data_skck_offline`
 --
 
-INSERT INTO `data_skck_offline` (`id_skck`, `nomor`, `no_ktp`, `paspor`, `nama`, `jk`, `kebangsaan`, `agama`, `tempat_lahir`, `tanggal_lahir`, `Alamat`, `pekerjaan`, `1_rumus_jari`, `2_rumus_jari`, `3_rumus_jari`, `4_rumus_jari`, `5_rumus_jari`, `6_rumus_jari`, `7_rumus_jari`, `8_rumus_jari`, `9_rumus_jari`, `10_rumus_jari`, `11_rumus_jari`, `12_rumus_jari`, `berada_di_indonesia_dari`, `keperluan`, `tgl_berlaku_dari`, `tgl_berlaku_sampai`, `dikeluarkan`, `create_at`) VALUES
-(1, '0', '1172022203980001', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhoksukun', '1998-03-22', 'Jurong Sejahtera RT / RW , Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'Mahasiswa', 'III', 'OMI', 'I', 'IOO', 'OOO', 'IMM', '', 'OMI', 'I', 'IOO', 'III', 'MMM', '1998-03-22', '8', '0000-00-00', '0000-00-00', '', '2020-05-20 04:40:37'),
-(2, '', '', '', '', 'LAKI-LAKI', 'Indonesia', '', '', '0000-00-00', ' RT / RW , Kel. , Kec. , ', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '4', '0000-00-00', '0000-00-00', '', '2020-05-20 05:24:34'),
-(3, '', '', '', '', 'LAKI-LAKI', 'Indonesia', '', '', '0000-00-00', ' RT / RW , Kel. , Kec. , ', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '9', '0000-00-00', '0000-00-00', '', '2020-05-20 05:26:01'),
-(4, 'SKCK/YANMAS/272/V/YAN.2.3/2020/INTELKAM', '', '', '', 'LAKI-LAKI', 'Indonesia', '', '', '0000-00-00', ' RT / RW , Kel. , Kec. , ', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '6', '0000-00-00', '0000-00-00', '', '2020-05-20 06:51:39'),
-(5, 'SKCK/YANMAS/272/V/YAN.2.3/2020/INTELKAM', '', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', '', '', '0000-00-00', ' RT / RW , Kel. , Kec. , ', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '2020-05-20 06:57:47');
+INSERT INTO `data_skck_offline` (`id_skck`, `nomor`, `no_ktp`, `paspor`, `nama`, `jk`, `kebangsaan`, `agama`, `tempat_lahir`, `tanggal_lahir`, `Alamat`, `pekerjaan`, `rumus_1_jari`, `rumus_2_jari`, `rumus_3_jari`, `rumus_4_jari`, `rumus_5_jari`, `rumus_6_jari`, `rumus_7_jari`, `rumus_8_jari`, `rumus_9_jari`, `rumus_10_jari`, `rumus_11_jari`, `rumus_12_jari`, `berada_di_indonesia_dari`, `keperluan`, `tgl_berlaku_dari`, `tgl_berlaku_sampai`, `dikeluarkan`, `catatan_kriminal`, `catatan_kriminal_en`, `create_at`) VALUES
+(6, 4, '879837294`', '23', 'dncbscbj', 'LAKI-LAKI', 'Indonesia', 'Konhuchu', 'dshbsjdhcb', '1998-05-04', 'kjbdkds RT / RW , Kel. PEPARIK DEKAT, Kec. BLANG JERANGO, KABUPATEN GAYO LUES', 'bhjvhjv', '', '', '', '', '', '', '', '', '', '', '', '', '1998-05-04', '18', '0000-00-00', '0000-00-00', '', '', '', '2020-05-25 13:43:27'),
+(7, 5, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:45:35'),
+(8, 6, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:48:42'),
+(9, 7, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:48:59'),
+(10, 8, '747646', '', 'hvjhv', 'LAKI-LAKI', 'Indonesia', 'Islam', 'hvjvhjv', '1987-02-02', 'sdasdasd RT / RW , Kel. TANAH MERAH, Kec. BADAR, KABUPATEN ACEH TENGGARA', 'sadasdasd', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1987-02-02', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:51:33'),
+(11, 9, '8289127381273891279', '', 'shdhasdjashkdhj', 'LAKI-LAKI', 'Indonesia', 'Kristen Khatolik', 'sjdhkashdkjahskjd', '1987-02-19', 'asadas RT / RW , Kel. BALE REDELONG, Kec. BUKIT, KABUPATEN BENER MERIAH', 'sadasdlasndm', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '1', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:53:46'),
+(12, 10, '8729321812389', '', 'p', 'LAKI-LAKI', 'Indonesia', 'Islam', 'p', '1872-03-19', 'sdasd RT / RW , Kel. SUKA JAYA, Kec. SIMEULUE TIMUR, KABUPATEN SIMEULUE', 'knkkj', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1872-03-19', '6', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:01:21'),
+(13, 11, '99999999', '', 'hbhbjhbh', 'LAKI-LAKI', 'Indonesia', 'Islam', 'jhbhjbjjhj', '1777-12-12', 'kbkbkjbkjk RT / RW , Kel. HAGU, Kec. PANTERAJA, KABUPATEN PIDIE JAYA', 'jkbkjbb', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '11', 'ed', '1777-12-12', '4', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:03:51'),
+(14, 12, '12121212', '', 'smdmasdmasdm', 'LAKI-LAKI', 'Indonesia', 'Budha', 'sdmasmdnasdas', '1999-03-03', 'ssac RT / RW , Kel. MEUNASAH JURONG, Kec. MEURAH DUA, KABUPATEN PIDIE JAYA', 'ssccs', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '4', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:14:33'),
+(15, 13, '1111', '', '11111', 'LAKI-LAKI', 'Indonesia', 'Islam', '11111', '1111-11-11', '11111 RT / RW , Kel. LATIUNG, Kec. TEUPAH SELATAN, KABUPATEN SIMEULUE', '1111', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '1', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:19:08'),
+(16, 14, '1172022203980001', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhoksukun', '1998-03-22', 'Jurong Sejahtera RT / RW , Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'Mahasiswa', '8', 'O', '21', 'W', 'OII', '9', '-', '1', '20', 'W', 'III', '-', '1998-03-22', '8', '0000-00-00', '0000-00-00', '', '', '', '2020-06-02 16:08:04'),
+(17, 15, '1172022203980001', '112898876', 'Raden Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhok sukun', '1998-03-22', 'Jurong Sejahtera RT / RW , Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'Freelancer', 'III', 'III', 'III', 'III', 'III', 'III', '-', 'III', 'III', 'III', 'III', '-', '1998-03-22', '27', '0000-00-00', '0000-00-00', '', '', '', '2020-06-02 17:54:29');
 
 -- --------------------------------------------------------
 
@@ -88459,6 +88468,43 @@ INSERT INTO `kecamatan` (`id`, `kabkota_id`, `nama_kecamatan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `lampiran`
+--
+
+CREATE TABLE `lampiran` (
+  `id_lampiran` int(11) NOT NULL,
+  `id_skck` int(11) NOT NULL,
+  `file` varchar(128) NOT NULL,
+  `name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `lampiran`
+--
+
+INSERT INTO `lampiran` (`id_lampiran`, `id_skck`, `file`, `name`) VALUES
+(15, 11, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
+(16, 11, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
+(17, 11, 'R_ANDRIPRATAMA-Introduction_to_-certificate.pdf', 'lampiran_ijazah'),
+(18, 12, '1314-5203-1-PB_(3).pdf', 'lampiran_ktp'),
+(19, 12, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
+(20, 12, '1314-5203-1-PB.pdf', 'lampiran_ijazah'),
+(21, 13, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
+(22, 13, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
+(23, 13, '1314-5203-1-PB.pdf', 'lampiran_ijazah'),
+(24, 14, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
+(25, 14, 'Pelayaan_Laporan1.pdf', 'lampiran_kk'),
+(26, 14, 'Pelayaan_Laporan2.pdf', 'lampiran_ijazah'),
+(27, 15, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
+(28, 15, '1314-5203-1-PB.pdf', 'lampiran_ktp'),
+(29, 15, '1314-5203-1-PB1.pdf', 'lampiran_kk'),
+(30, 15, '1314-5203-1-PB_(3).pdf', 'lampiran_ijazah'),
+(31, 16, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
+(32, 17, 'WhatsApp_Image_2020-04-07_at_20_16_46.jpeg', 'foto_ktp');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `nik`
 --
 
@@ -88501,7 +88547,19 @@ CREATE TABLE `no_skck` (
 
 INSERT INTO `no_skck` (`id_no_skck`, `no_skck`, `bulan`, `tahun`, `divisi`, `format`, `create_at`) VALUES
 (1, 271, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/271/V/YAN.2.3/2020/INTELKAM', 1589904584),
-(3, 272, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/272/V/YAN.2.3/2020/INTELKAM', 1589957868);
+(3, 272, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/272/V/YAN.2.3/2020/INTELKAM', 1589957868),
+(4, 273, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/273/V/YAN.2.3/2020/INTELKAM', 1590414207),
+(5, 274, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/274/V/YAN.2.3/2020/INTELKAM', 1590842734),
+(6, 274, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/274/V/YAN.2.3/2020/INTELKAM', 1590842921),
+(7, 274, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/274/V/YAN.2.3/2020/INTELKAM', 1590842938),
+(8, 275, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/275/V/YAN.2.3/2020/INTELKAM', 1590843093),
+(9, 276, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/276/V/YAN.2.3/2020/INTELKAM', 1590843226),
+(10, 277, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/277/V/YAN.2.3/2020/INTELKAM', 1590843681),
+(11, 278, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/278/V/YAN.2.3/2020/INTELKAM', 1590843831),
+(12, 279, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/279/V/YAN.2.3/2020/INTELKAM', 1590844473),
+(13, 280, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/280/V/YAN.2.3/2020/INTELKAM', 1590844748),
+(14, 281, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/281/V/YAN.2.3/2020/INTELKAM', 1591114083),
+(15, 282, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/282/V/YAN.2.3/2020/INTELKAM', 1591120468);
 
 -- --------------------------------------------------------
 
@@ -88572,7 +88630,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`id_admin`, `username`, `password`, `login_at`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', '2020-05-20 02:38:06');
+(1, 'admin', '0192023a7bbd73250516f069df18b500', '2020-06-02 15:58:11');
 
 -- --------------------------------------------------------
 
@@ -88743,6 +88801,36 @@ INSERT INTO `tb_tingkat` (`tingkat_id`, `tingkat_nama`) VALUES
 (3, 'POLRES'),
 (4, 'POLSEK');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `template_skck`
+--
+
+CREATE TABLE `template_skck` (
+  `id_template` int(11) NOT NULL,
+  `daerah_satuan` varchar(128) NOT NULL,
+  `resor_satuan` varchar(128) NOT NULL,
+  `alamat_satuan` varchar(128) NOT NULL,
+  `atas_nama` varchar(128) NOT NULL,
+  `satuan_kepala` varchar(128) NOT NULL,
+  `pejabat` varchar(128) NOT NULL,
+  `jabatan` varchar(128) NOT NULL,
+  `pernyataan_id` varchar(256) NOT NULL,
+  `pernyataan_en` varchar(256) NOT NULL,
+  `lokasi_cetak` varchar(128) NOT NULL,
+  `skck_berlaku` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `template_skck`
+--
+
+INSERT INTO `template_skck` (`id_template`, `daerah_satuan`, `resor_satuan`, `alamat_satuan`, `atas_nama`, `satuan_kepala`, `pejabat`, `jabatan`, `pernyataan_id`, `pernyataan_en`, `lokasi_cetak`, `skck_berlaku`) VALUES
+(1, 'DAERAH ACEH', 'RESOR KOTA BANDA ACEH', 'Jl. Cut Mutia, 25 Banda Aceh. 23242', 'a.n. KEPALA KEPOLISIAN RESOR KOTA BANDA ACEH', 'KASAT INTELKAM', 'HYROWO, S.I.K.', 'KOMISARIS POLISI NRP 84071756', 'Bahwa nama tersebut diatas tidak memiliki catatan atau keterlibatan dalam kegiatan kriminal apapun', 'the bearer here of proves not to be involved in any criminal cases', 'Banda Aceh', 6),
+(5, 'DAERAH ACEH', 'RESOR KOTA BANDA ACEH', 'Jl. Cut Mutia, 25 Banda Aceh. 23242', 'a.n. KEPALA KEPOLISIAN RESOR KOTA BANDA ACEH', 'KASAT INTELKAM', 'RADEN ANDRI PRATAMA A.Md', 'KOMISARIS POLISI NRP 84071756', 'Bahwa nama tersebut diatas tidak memiliki catatan atau keterlibatan dalam kegiatan kriminal apapun', 'the bearer here of proves not to be involved in any criminal cases', 'Banda Aceh', 6),
+(6, 'DAERAH ACEH', 'RESOR KOTA BANDA ACEH', 'Jl. Cut Mutia, 25 Banda Aceh. 23242', 'a.n. KEPALA KEPOLISIAN RESOR KOTA BANDA ACEH', 'KASAT INTELKAM', 'HYROWO, S.I.K.', 'KOMISARIS POLISI NRP 84071756', 'Bahwa nama tersebut diatas tidak memiliki catatan atau keterlibatan dalam kegiatan kriminal apapun', 'the bearer here of proves not to be involved in any criminal cases', 'Banda Aceh', 6);
+
 --
 -- Indexes for dumped tables
 --
@@ -88805,6 +88893,12 @@ ALTER TABLE `kecamatan`
   ADD KEY `kecamatan_id_index` (`kabkota_id`);
 
 --
+-- Indexes for table `lampiran`
+--
+ALTER TABLE `lampiran`
+  ADD PRIMARY KEY (`id_lampiran`);
+
+--
 -- Indexes for table `nik`
 --
 ALTER TABLE `nik`
@@ -88841,6 +88935,12 @@ ALTER TABLE `tb_tingkat`
   ADD PRIMARY KEY (`tingkat_id`);
 
 --
+-- Indexes for table `template_skck`
+--
+ALTER TABLE `template_skck`
+  ADD PRIMARY KEY (`id_template`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -88872,13 +88972,19 @@ ALTER TABLE `data_sidik_jari`
 -- AUTO_INCREMENT for table `data_skck_offline`
 --
 ALTER TABLE `data_skck_offline`
-  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `data_skck_online`
 --
 ALTER TABLE `data_skck_online`
   MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lampiran`
+--
+ALTER TABLE `lampiran`
+  MODIFY `id_lampiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `nik`
@@ -88890,7 +88996,7 @@ ALTER TABLE `nik`
 -- AUTO_INCREMENT for table `no_skck`
 --
 ALTER TABLE `no_skck`
-  MODIFY `id_no_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_no_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_admin`
@@ -88909,6 +89015,12 @@ ALTER TABLE `tb_keperluan`
 --
 ALTER TABLE `tb_tingkat`
   MODIFY `tingkat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `template_skck`
+--
+ALTER TABLE `template_skck`
+  MODIFY `id_template` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
