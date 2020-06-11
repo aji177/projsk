@@ -23,7 +23,7 @@
         </header>
         <section class="body">
             <header>
-                <p id="id">SURAT KETERANGAN CATATAN KEPOLISIAN</p>
+                <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">SURAT KETERANGAN CATATAN KEPOLISIAN</p>
                 <p id="en">POLICE RECORD</p>
                 <p id="nSurat">Nomor : <?= $nomor_skck ?></p>
             </header>
@@ -31,93 +31,93 @@
                 <table id="bio">
                     <tr>
                         <td colspan="3">
-                            <p id="id">Diterangkan bersama ini bahwa :</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Diterangkan bersama ini bahwa :</p>
                             <p id="en">This is to certify that:</p>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Nama</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Nama</p>
                             <p id="en">Name</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->nama ?></td>
+                        <td class="uppercase"><?= $skck->nama ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Jenis Kelamin</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Jenis Kelamin</p>
                             <p id="en">Sex</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->jk ?></td>
+                        <td class="uppercase"><?= $skck->jk ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Kebangsaan</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Kebangsaan</p>
                             <p id="en">Nationality</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->kebangsaan ?></td>
+                        <td class="uppercase"><?= $skck->kebangsaan ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Agama</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Agama</p>
                             <p id="en">Religion</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->agama ?></td>
+                        <td class="uppercase"><?= $skck->agama ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Tempat dan tgl lahir</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Tempat dan tgl lahir</p>
                             <p id="en">Place and date of birth</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->tempat_lahir ?>, <?php
-                                                        $tgl = $skck->tanggal_lahir;
-                                                        $arr = explode('-', $tgl);
-                                                        $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
+                        <td class="uppercase"><?= $skck->tempat_lahir ?>, <?php
+                                                                            $tgl = $skck->tanggal_lahir;
+                                                                            $arr = explode('-', $tgl);
+                                                                            $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
 
-                                                        echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
+                                                                            echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
 
-                                                        ?>
+                                                                            ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Tempat tinggal sekarang</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Tempat tinggal sekarang</p>
                             <p id="en">Current address</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->Alamat ?></td>
+                        <td class="uppercase"><?= $skck->Alamat ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Pekerjaan</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Pekerjaan</p>
                             <p id="en">Occuption</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->pekerjaan ?></td>
+                        <td class="uppercase"><?= $skck->pekerjaan ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Nomor Kartu Tanda Penduduk</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Nomor Kartu Tanda Penduduk</p>
                             <p id="en">Citizen Card number</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->no_ktp ?></td>
+                        <td class="uppercase"><?= $skck->no_ktp ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Nomor Paspor/KITAS/KITAP</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Nomor Paspor/KITAS/KITAP</p>
                             <p id="en">Passport/KITASKITAP number</p>
                         </td>
                         <td>:</td>
-                        <td><?= $skck->paspor == '' ? '-' : $skck->paspor ?></td>
+                        <td class="uppercase"><?= $skck->paspor == '' ? '-' : $skck->paspor ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Rumus sidik jari</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Rumus sidik jari</p>
                             <p id="en">Fingerrints formula</p>
                         </td>
                         <td>:</td>
@@ -134,29 +134,29 @@
                                 }
                                 ?>
                                 <tr>
-                                    <th><?= replace($skck->rumus_1_jari) ?></th>
-                                    <th><?= replace($skck->rumus_2_jari) ?></th>
-                                    <th><?= replace($skck->rumus_3_jari) ?></th>
-                                    <th><?= replace($skck->rumus_4_jari) ?></th>
-                                    <th><?= replace($skck->rumus_5_jari) ?></th>
-                                    <th><?= replace($skck->rumus_6_jari) ?></th>
+                                    <th><?= $skck->rumus_1_jari ?></th>
+                                    <th><?= $skck->rumus_2_jari ?></th>
+                                    <th><?= $skck->rumus_3_jari ?></th>
+                                    <th><?= $skck->rumus_4_jari ?></th>
+                                    <th><?= $skck->rumus_5_jari ?></th>
+                                    <th><?= $skck->rumus_6_jari ?></th>
                                 </tr>
                                 <tr>
-                                    <th><?= replace($skck->rumus_7_jari) ?></th>
-                                    <th><?= replace($skck->rumus_8_jari) ?></th>
-                                    <th><?= replace($skck->rumus_9_jari) ?></th>
-                                    <th><?= replace($skck->rumus_10_jari) ?></th>
-                                    <th><?= replace($skck->rumus_11_jari) ?></th>
-                                    <th><?= replace($skck->rumus_12_jari) ?></th>
+                                    <th><?= $skck->rumus_7_jari ?></th>
+                                    <th><?= $skck->rumus_8_jari ?></th>
+                                    <th><?= $skck->rumus_9_jari ?></th>
+                                    <th><?= $skck->rumus_10_jari ?></th>
+                                    <th><?= $skck->rumus_11_jari ?></th>
+                                    <th><?= $skck->rumus_12_jari ?></th>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <p id="id">
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">
                                 Setelah diadakan penelitian hingga saat dikeluarkan surat
-                                keteranganini yang didasarkan kepada :
+                                keteranganini yang didasarkan kepada:
                             </p>
                             <p id="en">
                                 As of screening through the issue hereof by virtue of :
@@ -167,15 +167,15 @@
                 <div class="keterangan">
                     <ol type="a">
                         <li>
-                            <p id="id">Catatan Kepolisian yang ada</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Catatan Kepolisian yang ada</p>
                             <p id="en">Existing police record</p>
                         </li>
                         <li>
-                            <p id="id">Surat keterangan dari Kepala Desa / Lurah</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Surat keterangan dari Kepala Desa / Lurah</p>
                             <p id="en">Information from local Authorities</p>
                         </li>
                     </ol>
-                    <p class="ket" id="id">
+                    <p class="ket" id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">
                         <?= $template->pernyataan_id ?>
                     </p>
                     <p class="ket" id="en">
@@ -184,38 +184,31 @@
                     <table id="tgl">
                         <tr>
                             <td>
-                                <p id="id">selama ia berada di Indonesia dari</p>
+                                <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">selama ia berada di Indonesia dari</p>
                                 <p id="en">Onduring his/her stay in Indonesia from</p>
                             </td>
                             <td>:</td>
-                            <td><?php
-                                $tgl = $skck->tanggal_lahir;
-                                $arr = explode('-', $tgl);
-                                $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
+                            <td class="uppercase"><?php
+                                                    $tgl = $skck->tanggal_lahir;
+                                                    $arr = explode('-', $tgl);
+                                                    $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
 
-                                echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
+                                                    echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
 
-                                ?></td>
+                                                    ?></td>
                         </tr>
                         <tr>
                             <td>
-                                <p id="id">Sampai Dengan</p>
+                                <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Sampai Dengan</p>
                                 <p id="en">To</p>
                             </td>
                             <td>:</td>
-                            <td><?php
-                                $tgl = date('Y-m-d');
-                                $arr = explode('-', $tgl);
-                                $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
-
-                                echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
-
-                                ?></td>
+                            <td class="uppercase">sekarang</td>
                         </tr>
                     </table>
                 </div>
                 <div class="keterangan2">
-                    <p id="id" style="text-decoration: underline;">
+                    <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">
                         Keterangan ini diberikan berhubungan dengan permohonan
                     </p>
                     <p id="en">
@@ -225,44 +218,41 @@
                 <table id="keperluan">
                     <tr>
                         <td>
-                            <p id="id">Untuk keperluan/menuju</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Untuk keperluan/menuju</p>
                             <p id="en">For the purpose</p>
                         </td>
                         <td>:</td>
-                        <td><?php
-                            $data = $this->db->get_where('tb_keperluan', ['keperluan_id' => $skck->keperluan])->row_object();
-                            echo $data->keperluan_nama;
-                            ?></td>
+                        <td class="uppercase"><?= $skck->keperluan ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Berlaku dari tanggal</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Berlaku dari tanggal</p>
                             <p id="en">Valid from P0</p>
                         </td>
                         <td>:</td>
-                        <td><?php
-                            $tgl = date('Y-m-d');
-                            $arr = explode('-', $tgl);
-                            $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
+                        <td class="uppercase"><?php
+                                                $tgl = date('Y-m-d');
+                                                $arr = explode('-', $tgl);
+                                                $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
 
-                            echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
+                                                echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
 
-                            ?></td>
+                                                ?></td>
                     </tr>
                     <tr>
                         <td>
-                            <p id="id">Sampai dengan</p>
+                            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Sampai dengan</p>
                             <p id="en">To</p>
                         </td>
                         <td>:</td>
-                        <td><?php
-                            $tgl = date('Y-m-d', strtotime('+' . $template->skck_berlaku . ' month', time()));
-                            $arr = explode('-', $tgl);
-                            $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
+                        <td class="uppercase"><?php
+                                                $tgl = date('Y-m-d', strtotime('+' . $template->skck_berlaku . ' month', time()));
+                                                $arr = explode('-', $tgl);
+                                                $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
 
-                            echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
+                                                echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
 
-                            ?></td>
+                                                ?></td>
                     </tr>
                 </table>
                 <div class="signature-area">
@@ -270,7 +260,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <p id="id">Dikeluarkan di</p>
+                                    <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Dikeluarkan di</p>
                                     <p id="en">Issued in</p>
                                 </td>
                                 <td>:</td>
@@ -278,18 +268,18 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p id="id">Pada tanggal</p>
+                                    <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">Pada tanggal</p>
                                     <p id="en">On</p>
                                 </td>
                                 <td>:</td>
-                                <td><?php
-                                    $tgl = date('Y-m-d');
-                                    $arr = explode('-', $tgl);
-                                    $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
+                                <td class="uppercase"><?php
+                                                        $tgl = date('Y-m-d');
+                                                        $arr = explode('-', $tgl);
+                                                        $bulan = $this->db->get_where('bulan_romawi', ['id' => $arr[1]])->row_object();
 
-                                    echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
+                                                        echo $arr[2] . ' ' . $bulan->bulan . ' ' . $arr[0];
 
-                                    ?></td>
+                                                        ?></td>
                             </tr>
                         </table>
                         <hr />
@@ -314,7 +304,7 @@
         </div>
         <div class="note">
             <p id="head">Catatan / Note:</p>
-            <p id="id">
+            <p id="id" style="text-decoration: underline; text-transform: none; font-size: 10pt;">
                 Apabila dikemudian hari ybs terlibat kejahatan / pelanggaran, SKCK ini
                 dinyatakan tidak berlaku.
             </p>
@@ -324,33 +314,67 @@
             </p>
         </div>
     </main>
-
+    <!-- jQuery -->
+    <script src="<?= base_url('app/') ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <script>
         window.addEventListener("load", window.print());
+        console.log(window.localStorage.getItem('contoh'));
 
         (function() {
-            var beforePrint = function() {
-                console.log("Fungsi yang dijalankan sebelum print");
-            };
+
+            function update() {
+                $.post('<?= base_url('api/print_done') ?>', {
+                    'id_skck': <?= $skck->id_skck ?>
+                }).done(function(data) {
+                    if (!data.errors) {
+                        alert(data.messages);
+                        <?php $this->session->set_flashdata('success', 'Berkas ' . $nomor_skck . ' berhasil dicetak');
+                        ?>
+                        window.location.href = '<?= base_url('pelayanan/buat_skck_' . $skck->create_from) ?>'
+                    } else {
+                        if (confirm(data.messages + '. Klik OK/YES untuk mengulang pembaharuan status cetak berkas ini.')) {
+                            update()
+                        } else {
+                            alert('Data akan disimpan di local storage');
+                            var pending = [{
+                                id_skck: <?= $skck->id_skck ?>,
+                                nomor_skck: '<?= $nomor_skck ?>'
+                            }]
+                            <?php $this->session->set_flashdata('error', 'Berkas ' . $nomor_skck . ' gagal dicetak');
+                            ?>
+                            window.localStorage.setItem('pending', JSON.stringify(pending))
+                            window.location.href = '<?= base_url('pelayanan/buat_skck_' . $skck->create_from) ?>'
+                        }
+                    }
+
+                })
+            }
 
             var afterPrint = function() {
-                console.log("Fungsi yang dijalankan setelah print");
+                if (confirm('Apakah Berkas ini sudah di cetak?')) {
+                    update()
+                } else {
+                    if (!confirm('Apakah ada kesalahan di berkas ini?')) {
+                        alert('Maaf!! Anda seharusnya cetak ini jika tidak ada kesalahan.')
+                        window.print()
+                    }
+                }
             };
 
             if (window.matchMedia) {
                 var mediaWQueryList = window.matchMedia("print");
                 mediaWQueryList.addListener(function(mql) {
                     if (mql.matches) {
-                        beforePrint();
+                        // beforePrint();
                     } else {
                         afterPrint();
                     }
                 });
+            } else {
+                window.onafterprint = afterPrint;
             }
 
-            window.onbeforeprint = beforePrint;
-            window.onafterprint = afterPrint;
-        })();
+        })(jQuery);
     </script>
 </body>
 

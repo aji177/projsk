@@ -9,7 +9,6 @@ class Home extends CI_Controller
     {
         $data = [
             'view' => 'home/index',
-            'modal' => 'pendaftaran/index'
         ];
         $this->load->view('app', $data);
     }

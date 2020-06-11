@@ -60,6 +60,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
+                            <div id="alert" class="alert alert-warning">
+                                <i class="fa fa-refresh fa-spin" style="margin-right: 1rem;"></i>
+                                <span id="messages"></span>
+                            </div>
                             <div id="exampleValidator" class="wizard">
                                 <ul class="wizard-steps" role="tablist">
                                     <li class="active" role="tab">
@@ -103,7 +107,7 @@
                                         </h6>
                                     </li>
                                 </ul>
-                                <form id="validation" action="<?= base_url('pelayanan/input_skck_offline') ?>" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off" target="_blank">
+                                <form id="validation" class="form-horizontal" autocomplete="off">
                                     <div class="wizard-content">
 
                                         <div class="wizard-pane active" role="tabpanel">
@@ -297,7 +301,7 @@
                                             <div class="form-group">
                                                 <label for="catatan_kriminal" class="col-xs-3 control-label">Catatan Kriminal</label>
                                                 <div class="col-xs-8">
-                                                    <input type="text" name="catatan_kriminal" id="catatan_kriminal" class="form-control" required />
+                                                    <input type="text" name="catatan_kriminal" id="catatan_kriminal" class="form-control" />
                                                 </div>
                                             </div>
 
@@ -313,12 +317,24 @@
                                             <div class="form-group">
                                                 <label for="keperluan" class="col-xs-3 control-label">Keperluan</label>
                                                 <div class="col-xs-8">
-                                                    <select name="keperluan" id="keperluan" class="form-control" required>
+                                                    <select name="keperluan" id="keperluan" class="form-control">
                                                         <option value="">-- Pilih Keperluan</option>
                                                         <?php foreach ($keperluan as $kep) : ?>
-                                                            <option value="<?= $kep->keperluan_id ?>"><?= $kep->keperluan_nama ?></option>
+                                                            <option value="<?= $kep->keperluan_nama ?>"><?= $kep->keperluan_nama ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <input type="radio" name="keperluan_action" id="" value="0" checked>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="" class="col-xs-3 control-label"></label>
+                                                <div class="col-xs-8">
+                                                    <input type="text" id="keperluan_ekstra" name="" class="form-control" placeholder="(Isi Jika Tidak ada keperluan yang tersedia diatas)" disabled>
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <input type="radio" name="keperluan_action" id="" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +365,7 @@
                                                 <label class="col-xs-3 control-label">Simpan Sidik Jari</label>
                                                 <div class="col-xs-2">
                                                     <div class="radio radio-success">
-                                                        <input type="checkbox" class="form-control" name="simpan" id="simpan" value="simpan" checked />
+                                                        <input type="checkbox" class="form-control" name="simpan" id="simpan" value="simpan" />
                                                         <label for="simpan">Simpan</label>
                                                     </div>
                                                 </div>
@@ -509,6 +525,9 @@
     <!-- Dropfy -->
     <script src="<?= base_url('app/') ?>plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#alert").hide();
+        });
         (function() {
             <?php if ($this->session->flashdata('error')) : ?>
                 $.toast({
@@ -602,6 +621,22 @@
                 })
             })
 
+            $('input:radio[name="keperluan_action"]').click(function(e) {
+                if ($(this).val() == 1 && $(this).is(':checked')) {
+                    $('#keperluan').attr('disabled', 'disabled')
+                    $('#keperluan_ekstra').attr('name', 'keperluan')
+                    $('#keperluan').removeAttr('name')
+                    $('#keperluan_ekstra').removeAttr('disabled')
+                } else {
+                    $('#keperluan_ekstra').attr('disabled', 'disabled')
+                    $('#keperluan').attr('name', 'keperluan')
+                    $('#keperluan').removeAttr('disabled')
+                    $('#keperluan_ekstra').removeAttr('name')
+                }
+
+
+            })
+
             $("#exampleValidator").wizard({
                 onInit: function() {
                     $("#validation").formValidation({
@@ -617,19 +652,6 @@
                             agama: validators,
                             pekerjaan: validators,
                             nomor_skck: validators,
-                            keperluan: validators,
-                            rumus_1: validators,
-                            rumus_2: validators,
-                            rumus_3: validators,
-                            rumus_4: validators,
-                            rumus_5: validators,
-                            rumus_6: validators,
-                            rumus_7: validators,
-                            rumus_8: validators,
-                            rumus_9: validators,
-                            rumus_10: validators,
-                            rumus_11: validators,
-                            rumus_12: validators,
                         },
                     });
                 },
@@ -645,11 +667,49 @@
                     return true;
                 },
                 onFinish: function() {
-                    $("#validation").submit();
-                    swal(
-                        "Message Finish!",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed."
-                    );
+                    $.ajax({
+                        url: `<?= base_url('pelayanan/insert_skck_offline') ?>`,
+                        type: "post",
+                        data: new FormData(document.getElementById("validation")),
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        async: false,
+                        beforeSend: function() {
+                            $("#alert").removeClass("alert-danger");
+                            $("#alert").removeClass("alert-success");
+                            $("#alert").addClass("alert-warning");
+                            $("#alert").show();
+                            $("#messages").text("Menyimpan Data Anda, Silahkan Tunggu");
+                        },
+                        error: function(xhr, error, thrown) {
+                            console.log(xhr);
+                            console.log(error);
+                            console.log(thrown);
+                        },
+                        success: function(d) {
+                            $("#alert").fadeOut(500);
+                            var data = JSON.parse(d);
+                            console.log(data);
+
+                            if (data["errors"] === 1) {
+                                $("#alert").removeClass("alert-warning");
+                                $("#alert").removeClass("alert-success");
+                                $("#alert").addClass("alert-danger");
+                                $("#alert").fadeIn(500);
+                                $("#messages").text(data["messages"]);
+                            } else {
+                                $("#alert").removeClass("alert-warning");
+                                $("#alert").removeClass("alert-danger");
+                                $("#alert").addClass("alert-success");
+                                $("#alert").fadeIn(500);
+                                $("#messages").text(data["messages"]);
+                                setTimeout(() => {
+                                    window.location.href = data['redirect']
+                                }, 5000);
+                            }
+                        },
+                    });
                 },
             });
         })();

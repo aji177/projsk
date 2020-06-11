@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03 Jun 2020 pada 01.47
+-- Generation Time: 12 Jun 2020 pada 00.24
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -83,25 +83,85 @@ CREATE TABLE `data_cetak_skck` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_sidik_jari`
+-- Struktur dari tabel `data_nik`
 --
 
-CREATE TABLE `data_sidik_jari` (
-  `id_sidik_jari` int(11) NOT NULL,
-  `rumus_1` varchar(50) NOT NULL,
-  `rumus_2` varchar(50) NOT NULL,
-  `rumus_3` varchar(50) NOT NULL,
-  `rumus_4` varchar(50) NOT NULL,
-  `rumus_5` varchar(50) NOT NULL,
-  `rumus_6` varchar(50) NOT NULL,
-  `rumus_7` varchar(50) NOT NULL,
-  `rumus_8` varchar(50) NOT NULL,
-  `rumus_9` varchar(50) NOT NULL,
-  `rumus_10` varchar(50) NOT NULL,
-  `rumus_11` varchar(50) NOT NULL,
-  `rumus_12` varchar(50) NOT NULL,
-  `id_ktp` int(11) NOT NULL
+CREATE TABLE `data_nik` (
+  `id_nik` int(11) NOT NULL,
+  `no_ktp` varchar(20) NOT NULL,
+  `paspor` varchar(128) NOT NULL,
+  `nama` varchar(128) NOT NULL,
+  `jk` varchar(10) NOT NULL,
+  `kebangsaan` varchar(128) NOT NULL,
+  `agama` varchar(50) NOT NULL,
+  `tempat_lahir` varchar(50) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `nama_jalan` varchar(128) NOT NULL,
+  `rt` int(11) NOT NULL,
+  `rw` int(11) NOT NULL,
+  `id_desa` int(11) NOT NULL,
+  `id_kecamatan` int(11) NOT NULL,
+  `id_kota` int(11) NOT NULL,
+  `pekerjaan` varchar(128) NOT NULL,
+  `is_full` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_nik`
+--
+
+INSERT INTO `data_nik` (`id_nik`, `no_ktp`, `paspor`, `nama`, `jk`, `kebangsaan`, `agama`, `tempat_lahir`, `tanggal_lahir`, `nama_jalan`, `rt`, `rw`, `id_desa`, `id_kecamatan`, `id_kota`, `pekerjaan`, `is_full`) VALUES
+(2, '1172022203980001', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Konhuchu', 'Lhoksukun', '1998-03-22', 'saasdsad', 0, 0, 1115041015, 1115041, 1115, 'hbhjhj', 1),
+(3, '1111111111111111111', '', 'sadasdasdasdasd', 'LAKI-LAKI', 'Indonesia', 'Islam', 'asdasdasdasd', '1999-09-09', 'nnk', 0, 0, 1103090029, 1103090, 1103, 'sdsdsdsdsd', 1),
+(4, '11111111111111111111', '', 'eewdewdwedwedwed', 'LAKI-LAKI', 'Indonesia', 'Budha', 'wedwedwed', '1999-09-09', 'wewefe', 0, 0, 1118070008, 1118070, 1118, 'sdcdsc', 1),
+(5, '11111111111111111111', '', 'eewdewdwedwedwed', 'LAKI-LAKI', 'Indonesia', 'Budha', 'wedwedwed', '1999-09-09', 'wewefe', 0, 0, 1118070008, 1118070, 1118, 'sdcdsc', 1),
+(6, '23123123123', '', 'asdasdasdas', 'LAKI-LAKI', 'Indonesia', 'Islam', 'edededede', '2020-06-24', 'kjbjbkjkjbk', 0, 0, 1114070028, 1114070, 1114, 'nmnnn', 1),
+(7, '11111111111111111111', '', '1111111', 'LAKI-LAKI', 'Indonesia', 'Hindu', '11111', '1111-11-11', '111111111', 0, 0, 1117010024, 1117010, 1117, '7777777777', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_skck`
+--
+
+CREATE TABLE `data_skck` (
+  `id_skck` int(11) NOT NULL,
+  `tiket` varchar(128) NOT NULL,
+  `nomor` int(11) NOT NULL,
+  `id_ktp` int(11) NOT NULL,
+  `Alamat` varchar(256) NOT NULL,
+  `rumus_1_jari` varchar(20) NOT NULL,
+  `rumus_2_jari` varchar(20) NOT NULL,
+  `rumus_3_jari` varchar(20) NOT NULL,
+  `rumus_4_jari` varchar(20) NOT NULL,
+  `rumus_5_jari` varchar(20) NOT NULL,
+  `rumus_6_jari` varchar(20) NOT NULL,
+  `rumus_7_jari` varchar(20) NOT NULL,
+  `rumus_8_jari` varchar(20) NOT NULL,
+  `rumus_9_jari` varchar(20) NOT NULL,
+  `rumus_10_jari` varchar(20) NOT NULL,
+  `rumus_11_jari` varchar(20) NOT NULL,
+  `rumus_12_jari` varchar(20) NOT NULL,
+  `berada_di_indonesia_dari` date NOT NULL,
+  `keperluan` varchar(128) NOT NULL,
+  `catatan_kriminal` varchar(128) NOT NULL,
+  `catatan_kriminal_en` varchar(128) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `request_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `kadaluarsa` tinyint(1) NOT NULL,
+  `is_print` tinyint(1) NOT NULL,
+  `create_from` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_skck`
+--
+
+INSERT INTO `data_skck` (`id_skck`, `tiket`, `nomor`, `id_ktp`, `Alamat`, `rumus_1_jari`, `rumus_2_jari`, `rumus_3_jari`, `rumus_4_jari`, `rumus_5_jari`, `rumus_6_jari`, `rumus_7_jari`, `rumus_8_jari`, `rumus_9_jari`, `rumus_10_jari`, `rumus_11_jari`, `rumus_12_jari`, `berada_di_indonesia_dari`, `keperluan`, `catatan_kriminal`, `catatan_kriminal_en`, `create_at`, `request_at`, `kadaluarsa`, `is_print`, `create_from`) VALUES
+(1, '', 27, 6, '5555ffff, Kel. ARONGAN, Kec. DARUL HIKMAH, KABUPATEN ACEH JAYA', 'iii', 'ii', 'i', 'i', 'i', 'i', 'i', 'i', 'ij', 'i', 'n', 'n', '1111-11-11', 'Memperoleh Paspor atau Visa', '-', '-', '2020-06-11 16:14:38', '0000-00-00 00:00:00', 0, 0, 'offline'),
+(2, '', 28, 6, 'kjbjbkjkjbk, Kel. PAHLAWAN, Kec. KARANG BARU, KABUPATEN ACEH TAMIANG', '', '', '', '', '', '', '', '', '', '', '', '', '2020-06-22', 'Naturalisasi Kewarganegaraan', '', '', '2020-06-11 16:20:40', '0000-00-00 00:00:00', 0, 0, 'offline'),
+(3, '', 29, 7, '111111111, Kel. KAMPUNG BARU, Kec. TIMANG GAJAH, KABUPATEN BENER MERIAH', '', '', '', '', '', '', '', '', '', '', '', '', '1111-11-11', 'Ijin Tinggal Tetap di Luar Negeri (Permanent Resident)', '', '', '2020-06-11 16:23:35', '0000-00-00 00:00:00', 0, 0, 'offline'),
+(4, '', 30, 2, 'saasdsad, Kel. KRAK TAMPAI, Kec. SUKA MAKMUE, KABUPATEN NAGAN RAYA', '', '', '', '', '', '', '', '', '', '', '', '', '1998-03-22', 'Penerbitan Visa', '', '', '2020-06-11 17:00:34', '0000-00-00 00:00:00', 0, 1, 'offline');
 
 -- --------------------------------------------------------
 
@@ -136,31 +196,19 @@ CREATE TABLE `data_skck_offline` (
   `rumus_12_jari` varchar(20) NOT NULL,
   `berada_di_indonesia_dari` date NOT NULL,
   `keperluan` varchar(128) NOT NULL,
-  `tgl_berlaku_dari` date NOT NULL,
-  `tgl_berlaku_sampai` date NOT NULL COMMENT '6 Bulan Sejak Tgl Berlaku dari di buat',
-  `dikeluarkan` varchar(128) NOT NULL,
   `catatan_kriminal` varchar(128) NOT NULL,
   `catatan_kriminal_en` varchar(128) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_print` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `data_skck_offline`
 --
 
-INSERT INTO `data_skck_offline` (`id_skck`, `nomor`, `no_ktp`, `paspor`, `nama`, `jk`, `kebangsaan`, `agama`, `tempat_lahir`, `tanggal_lahir`, `Alamat`, `pekerjaan`, `rumus_1_jari`, `rumus_2_jari`, `rumus_3_jari`, `rumus_4_jari`, `rumus_5_jari`, `rumus_6_jari`, `rumus_7_jari`, `rumus_8_jari`, `rumus_9_jari`, `rumus_10_jari`, `rumus_11_jari`, `rumus_12_jari`, `berada_di_indonesia_dari`, `keperluan`, `tgl_berlaku_dari`, `tgl_berlaku_sampai`, `dikeluarkan`, `catatan_kriminal`, `catatan_kriminal_en`, `create_at`) VALUES
-(6, 4, '879837294`', '23', 'dncbscbj', 'LAKI-LAKI', 'Indonesia', 'Konhuchu', 'dshbsjdhcb', '1998-05-04', 'kjbdkds RT / RW , Kel. PEPARIK DEKAT, Kec. BLANG JERANGO, KABUPATEN GAYO LUES', 'bhjvhjv', '', '', '', '', '', '', '', '', '', '', '', '', '1998-05-04', '18', '0000-00-00', '0000-00-00', '', '', '', '2020-05-25 13:43:27'),
-(7, 5, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:45:35'),
-(8, 6, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:48:42'),
-(9, 7, '93284798237', '', 'jbsdkabskdbasjbdk', 'LAKI-LAKI', 'Indonesia', 'Islam', 'bckasbkjcbkasck', '1998-03-12', 'jkjanknx RT / RW , Kel. SIMPANG RENGGALI, Kec. MESIDAH, KABUPATEN BENER MERIAH', 'sbksbkabkjxasx', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:48:59'),
-(10, 8, '747646', '', 'hvjhv', 'LAKI-LAKI', 'Indonesia', 'Islam', 'hvjvhjv', '1987-02-02', 'sdasdasd RT / RW , Kel. TANAH MERAH, Kec. BADAR, KABUPATEN ACEH TENGGARA', 'sadasdasd', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1987-02-02', '5', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:51:33'),
-(11, 9, '8289127381273891279', '', 'shdhasdjashkdhj', 'LAKI-LAKI', 'Indonesia', 'Kristen Khatolik', 'sjdhkashdkjahskjd', '1987-02-19', 'asadas RT / RW , Kel. BALE REDELONG, Kec. BUKIT, KABUPATEN BENER MERIAH', 'sadasdlasndm', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '1', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 12:53:46'),
-(12, 10, '8729321812389', '', 'p', 'LAKI-LAKI', 'Indonesia', 'Islam', 'p', '1872-03-19', 'sdasd RT / RW , Kel. SUKA JAYA, Kec. SIMEULUE TIMUR, KABUPATEN SIMEULUE', 'knkkj', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1872-03-19', '6', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:01:21'),
-(13, 11, '99999999', '', 'hbhbjhbh', 'LAKI-LAKI', 'Indonesia', 'Islam', 'jhbhjbjjhj', '1777-12-12', 'kbkbkjbkjk RT / RW , Kel. HAGU, Kec. PANTERAJA, KABUPATEN PIDIE JAYA', 'jkbkjbb', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '11', 'ed', '1777-12-12', '4', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:03:51'),
-(14, 12, '12121212', '', 'smdmasdmasdm', 'LAKI-LAKI', 'Indonesia', 'Budha', 'sdmasmdnasdas', '1999-03-03', 'ssac RT / RW , Kel. MEUNASAH JURONG, Kec. MEURAH DUA, KABUPATEN PIDIE JAYA', 'ssccs', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '4', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:14:33'),
-(15, 13, '1111', '', '11111', 'LAKI-LAKI', 'Indonesia', 'Islam', '11111', '1111-11-11', '11111 RT / RW , Kel. LATIUNG, Kec. TEUPAH SELATAN, KABUPATEN SIMEULUE', '1111', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0000-00-00', '1', '0000-00-00', '0000-00-00', '', '', '', '2020-05-30 13:19:08'),
-(16, 14, '1172022203980001', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhoksukun', '1998-03-22', 'Jurong Sejahtera RT / RW , Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'Mahasiswa', '8', 'O', '21', 'W', 'OII', '9', '-', '1', '20', 'W', 'III', '-', '1998-03-22', '8', '0000-00-00', '0000-00-00', '', '', '', '2020-06-02 16:08:04'),
-(17, 15, '1172022203980001', '112898876', 'Raden Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhok sukun', '1998-03-22', 'Jurong Sejahtera RT / RW , Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'Freelancer', 'III', 'III', 'III', 'III', 'III', 'III', '-', 'III', 'III', 'III', 'III', '-', '1998-03-22', '27', '0000-00-00', '0000-00-00', '', '', '', '2020-06-02 17:54:29');
+INSERT INTO `data_skck_offline` (`id_skck`, `nomor`, `no_ktp`, `paspor`, `nama`, `jk`, `kebangsaan`, `agama`, `tempat_lahir`, `tanggal_lahir`, `Alamat`, `pekerjaan`, `rumus_1_jari`, `rumus_2_jari`, `rumus_3_jari`, `rumus_4_jari`, `rumus_5_jari`, `rumus_6_jari`, `rumus_7_jari`, `rumus_8_jari`, `rumus_9_jari`, `rumus_10_jari`, `rumus_11_jari`, `rumus_12_jari`, `berada_di_indonesia_dari`, `keperluan`, `catatan_kriminal`, `catatan_kriminal_en`, `create_at`, `is_print`) VALUES
+(1, 20, '1172022203980001', '', 'R Andri Pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhoksukun', '1998-03-22', 'Jurong Sejahtera, Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'mahasiswa', 'I', 'I', 'I', 'I', '', 'I', 'I', '', 'I', 'I', 'I', '', '1998-03-22', 'Mencari Pekerjaan', '', '', '2020-06-04 13:29:27', 0),
+(2, 21, '1172022203980001', '', 'R andri pratama', 'LAKI-LAKI', 'Indonesia', 'Islam', 'Lhoksukun', '1998-03-22', 'jurong sejahtera, Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', 'mahasiswa', 'I', 'I', 'I', 'I', '', 'I', '', 'I', '', 'I', 'I', 'I', '1998-03-22', 'Perpindahan Rumah Antar Provinsi', '', '', '2020-06-04 14:13:11', 0);
 
 -- --------------------------------------------------------
 
@@ -170,17 +218,39 @@ INSERT INTO `data_skck_offline` (`id_skck`, `nomor`, `no_ktp`, `paspor`, `nama`,
 
 CREATE TABLE `data_skck_online` (
   `id_skck` int(11) NOT NULL,
-  `no` int(11) NOT NULL,
-  `bulan` varchar(5) NOT NULL,
-  `tahun` int(11) NOT NULL,
+  `tiket` varchar(128) NOT NULL,
+  `nomor` int(11) NOT NULL,
   `id_ktp` int(11) NOT NULL,
-  `id_sidik_jari` int(11) NOT NULL,
-  `id_keperluan` int(11) NOT NULL,
-  `tgl_berlaku_dari` date NOT NULL,
-  `tgl_berlaku_sampai` date NOT NULL COMMENT '6 Bulan dari tanggal berlaku di buat',
-  `dikeluarkan` varchar(50) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `Alamat` varchar(256) NOT NULL,
+  `rumus_1_jari` varchar(20) NOT NULL,
+  `rumus_2_jari` varchar(20) NOT NULL,
+  `rumus_3_jari` varchar(20) NOT NULL,
+  `rumus_4_jari` varchar(20) NOT NULL,
+  `rumus_5_jari` varchar(20) NOT NULL,
+  `rumus_6_jari` varchar(20) NOT NULL,
+  `rumus_7_jari` varchar(20) NOT NULL,
+  `rumus_8_jari` varchar(20) NOT NULL,
+  `rumus_9_jari` varchar(20) NOT NULL,
+  `rumus_10_jari` varchar(20) NOT NULL,
+  `rumus_11_jari` varchar(20) NOT NULL,
+  `rumus_12_jari` varchar(20) NOT NULL,
+  `berada_di_indonesia_dari` date NOT NULL,
+  `keperluan` varchar(128) NOT NULL,
+  `catatan_kriminal` varchar(128) NOT NULL,
+  `catatan_kriminal_en` varchar(128) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `request_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `kadaluarsa` tinyint(1) NOT NULL,
+  `is_print` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_skck_online`
+--
+
+INSERT INTO `data_skck_online` (`id_skck`, `tiket`, `nomor`, `id_ktp`, `Alamat`, `rumus_1_jari`, `rumus_2_jari`, `rumus_3_jari`, `rumus_4_jari`, `rumus_5_jari`, `rumus_6_jari`, `rumus_7_jari`, `rumus_8_jari`, `rumus_9_jari`, `rumus_10_jari`, `rumus_11_jari`, `rumus_12_jari`, `berada_di_indonesia_dari`, `keperluan`, `catatan_kriminal`, `catatan_kriminal_en`, `create_at`, `request_at`, `kadaluarsa`, `is_print`) VALUES
+(3, '4JlzLxWF6ZCuivDHMdTr', 0, 2, 'Jurong Sejahtera, Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 'Melamar Pekerjaan', '', '', '2020-06-11 11:00:28', '0000-00-00 00:00:00', 1, 0),
+(4, 'vg6Admr32DiXCHjzNfYV', 0, 2, 'Jurong Sejahtera, Kel. COT ABEUK, Kec. SUKAJAYA, KOTA SABANG', '', '', '', '', '', '', '', '', '', '', '', '', '1998-03-22', 'Pencalonan Pejabat Publik', '', '', '2020-06-11 12:09:23', '2020-06-10 03:11:05', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -88483,47 +88553,37 @@ CREATE TABLE `lampiran` (
 --
 
 INSERT INTO `lampiran` (`id_lampiran`, `id_skck`, `file`, `name`) VALUES
-(15, 11, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
-(16, 11, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
-(17, 11, 'R_ANDRIPRATAMA-Introduction_to_-certificate.pdf', 'lampiran_ijazah'),
-(18, 12, '1314-5203-1-PB_(3).pdf', 'lampiran_ktp'),
-(19, 12, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
-(20, 12, '1314-5203-1-PB.pdf', 'lampiran_ijazah'),
-(21, 13, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
-(22, 13, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
-(23, 13, '1314-5203-1-PB.pdf', 'lampiran_ijazah'),
-(24, 14, 'Pelayaan_Laporan.pdf', 'lampiran_ktp'),
-(25, 14, 'Pelayaan_Laporan1.pdf', 'lampiran_kk'),
-(26, 14, 'Pelayaan_Laporan2.pdf', 'lampiran_ijazah'),
-(27, 15, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
-(28, 15, '1314-5203-1-PB.pdf', 'lampiran_ktp'),
-(29, 15, '1314-5203-1-PB1.pdf', 'lampiran_kk'),
-(30, 15, '1314-5203-1-PB_(3).pdf', 'lampiran_ijazah'),
-(31, 16, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
-(32, 17, 'WhatsApp_Image_2020-04-07_at_20_16_46.jpeg', 'foto_ktp');
+(3, 4, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
+(4, 1, 'SKCK_PRINT.pdf', 'lampiran_ktp'),
+(5, 1, 'SKCK_PRINT1.pdf', 'lampiran_kk'),
+(6, 1, 'SKCK_PRINT2.pdf', 'lampiran_ijazah');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `nik`
+-- Struktur dari tabel `lampiran-online`
 --
 
-CREATE TABLE `nik` (
-  `id_nik` int(11) NOT NULL,
-  `nik` varchar(16) NOT NULL,
-  `nama_lengkap` varchar(128) NOT NULL,
-  `tempat_lahir` varchar(128) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `agama` int(11) NOT NULL,
-  `goldar` varchar(10) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `provinsi_id` int(11) NOT NULL,
-  `kabkota_id` int(11) NOT NULL,
-  `kecamatan_id` int(11) NOT NULL,
-  `desa_id` int(11) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
-  `foto` int(11) NOT NULL
+CREATE TABLE `lampiran-online` (
+  `id_lampiran` int(11) NOT NULL,
+  `id_skck` int(11) NOT NULL,
+  `file` varchar(128) NOT NULL,
+  `name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `lampiran-online`
+--
+
+INSERT INTO `lampiran-online` (`id_lampiran`, `id_skck`, `file`, `name`) VALUES
+(6, 3, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
+(7, 3, 'SKCK_PRINT.pdf', 'lampiran_ktp'),
+(8, 3, 'Pelayaan_Laporan.pdf', 'lampiran_kk'),
+(9, 3, 'R_ANDRIPRATAMA-Jaringan_Kompute-letter.pdf', 'lampiran_ijazah'),
+(10, 4, 'WhatsApp_Image_2020-03-09_at_16_45_19.jpeg', 'foto_ktp'),
+(11, 4, '1314-5203-1-PB_(3).pdf', 'lampiran_ktp'),
+(12, 4, '1314-5203-1-PB_(2).pdf', 'lampiran_kk'),
+(13, 4, '1314-5203-1-PB_(1).pdf', 'lampiran_ijazah');
 
 -- --------------------------------------------------------
 
@@ -88559,7 +88619,22 @@ INSERT INTO `no_skck` (`id_no_skck`, `no_skck`, `bulan`, `tahun`, `divisi`, `for
 (12, 279, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/279/V/YAN.2.3/2020/INTELKAM', 1590844473),
 (13, 280, 'V', 2020, 'INTELKAM', 'SKCK/YANMAS/280/V/YAN.2.3/2020/INTELKAM', 1590844748),
 (14, 281, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/281/V/YAN.2.3/2020/INTELKAM', 1591114083),
-(15, 282, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/282/V/YAN.2.3/2020/INTELKAM', 1591120468);
+(15, 282, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/282/V/YAN.2.3/2020/INTELKAM', 1591120468),
+(16, 283, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/283/V/YAN.2.3/2020/INTELKAM', 1591198821),
+(17, 283, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/283/V/YAN.2.3/2020/INTELKAM', 1591198859),
+(18, 283, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/283/V/YAN.2.3/2020/INTELKAM', 1591199021),
+(19, 283, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/283/V/YAN.2.3/2020/INTELKAM', 1591199054),
+(20, 283, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/283/V/YAN.2.3/2020/INTELKAM', 1591199140),
+(21, 284, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/284/V/YAN.2.3/2020/INTELKAM', 1591201623),
+(22, 285, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/285/V/YAN.2.3/2020/INTELKAM', 1591890239),
+(23, 286, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/286/V/YAN.2.3/2020/INTELKAM', 1591890342),
+(24, 286, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/286/V/YAN.2.3/2020/INTELKAM', 1591890527),
+(25, 287, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/287/V/YAN.2.3/2020/INTELKAM', 1591890912),
+(26, 287, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/287/V/YAN.2.3/2020/INTELKAM', 1591891208),
+(27, 288, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/288/V/YAN.2.3/2020/INTELKAM', 1591891877),
+(28, 289, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/289/V/YAN.2.3/2020/INTELKAM', 1591892440),
+(29, 290, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/290/V/YAN.2.3/2020/INTELKAM', 1591892614),
+(30, 291, 'VI', 2020, 'INTELKAM', 'SKCK/YANMAS/291/V/YAN.2.3/2020/INTELKAM', 1591892949);
 
 -- --------------------------------------------------------
 
@@ -88630,7 +88705,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`id_admin`, `username`, `password`, `login_at`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', '2020-06-02 15:58:11');
+(1, 'admin', '0192023a7bbd73250516f069df18b500', '2020-06-11 15:29:34');
 
 -- --------------------------------------------------------
 
@@ -88854,10 +88929,16 @@ ALTER TABLE `data_cetak_skck`
   ADD PRIMARY KEY (`id_cetak`);
 
 --
--- Indexes for table `data_sidik_jari`
+-- Indexes for table `data_nik`
 --
-ALTER TABLE `data_sidik_jari`
-  ADD PRIMARY KEY (`id_sidik_jari`);
+ALTER TABLE `data_nik`
+  ADD PRIMARY KEY (`id_nik`);
+
+--
+-- Indexes for table `data_skck`
+--
+ALTER TABLE `data_skck`
+  ADD PRIMARY KEY (`id_skck`);
 
 --
 -- Indexes for table `data_skck_offline`
@@ -88899,10 +88980,10 @@ ALTER TABLE `lampiran`
   ADD PRIMARY KEY (`id_lampiran`);
 
 --
--- Indexes for table `nik`
+-- Indexes for table `lampiran-online`
 --
-ALTER TABLE `nik`
-  ADD PRIMARY KEY (`id_nik`);
+ALTER TABLE `lampiran-online`
+  ADD PRIMARY KEY (`id_lampiran`);
 
 --
 -- Indexes for table `no_skck`
@@ -88963,40 +89044,46 @@ ALTER TABLE `data_cetak_skck`
   MODIFY `id_cetak` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `data_sidik_jari`
+-- AUTO_INCREMENT for table `data_nik`
 --
-ALTER TABLE `data_sidik_jari`
-  MODIFY `id_sidik_jari` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `data_nik`
+  MODIFY `id_nik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `data_skck`
+--
+ALTER TABLE `data_skck`
+  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `data_skck_offline`
 --
 ALTER TABLE `data_skck_offline`
-  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `data_skck_online`
 --
 ALTER TABLE `data_skck_online`
-  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `lampiran`
 --
 ALTER TABLE `lampiran`
-  MODIFY `id_lampiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_lampiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `nik`
+-- AUTO_INCREMENT for table `lampiran-online`
 --
-ALTER TABLE `nik`
-  MODIFY `id_nik` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `lampiran-online`
+  MODIFY `id_lampiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `no_skck`
 --
 ALTER TABLE `no_skck`
-  MODIFY `id_no_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_no_skck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tb_admin`

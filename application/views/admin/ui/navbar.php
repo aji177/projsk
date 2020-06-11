@@ -22,24 +22,10 @@
             <!-- /.Task dropdown -->
             <!-- /.dropdown -->
             <li class="dropdown">
-                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0)"> <img src="<?= base_url('app/') ?>plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0)">
+                    <i class="fa fa-cog"></i><span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
-                    <li>
-                        <div class="dw-user-box">
-                            <div class="u-img"><img src="<?= base_url('app/') ?>plugins/images/users/varun.jpg" alt="user" /></div>
-                            <div class="u-text">
-                                <h4>Steave Jobs</h4>
-                                <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
-                    <li><a href="javascript:void(0)"><i class="ti-wallet"></i> My Balance</a></li>
-                    <li><a href="javascript:void(0)"><i class="ti-email"></i> Inbox</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
-                    <li role="separator" class="divider"></li>
                     <li><a href="<?= base_url('pelayanan/logout') ?>"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
                 <!-- /.dropdown-user -->

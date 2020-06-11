@@ -6,7 +6,13 @@
   }
   html,
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
+  }
+
+  section.body header p#id,
+  table tr td p#id,
+  table tr th p#id {
+    text-transform: uppercase;
   }
 
   header.head {
@@ -62,7 +68,6 @@
   section.body header p#id {
     font-size: 12pt;
     font-weight: bold;
-    text-transform: uppercase;
     text-decoration: underline;
   }
 
@@ -73,7 +78,7 @@
   }
 
   section.body header p#nSurat {
-    font-size: 10pt;
+    font-size: 11pt;
   }
 
   section.body article {
@@ -94,11 +99,15 @@
   table#bio tr td:first-child:not([colspan="3"]),
   table#keperluan tr td:first-child:not([colspan="3"]),
   table#tgl tr td:first-child:not([colspan="3"]) {
-    width: 6.85cm;
+    width: 7cm;
+  }
+
+  td.uppercase {
+    text-transform: uppercase;
   }
 
   table#sidik-jari {
-    width: 6.85cm;
+    width: 7cm;
     border-collapse: collapse;
   }
 
@@ -170,6 +179,8 @@
   }
   .signature-box hr {
     border-color: #000;
+    margin-bottom: 0;
+    margin-top: 0;
   }
   .signature-box table tr td:first-child {
     width: 3.5cm;
@@ -202,11 +213,13 @@
 
   .signature-content hr {
     max-width: 6.3cm;
+    margin-top: 0;
+    margin-bottom: 0;
     border: 1px solid #000;
   }
 
   main#print .photo-area {
-    top: 29.5cm;
+    top: 30cm;
     width: 4cm;
     height: 6cm;
     position: absolute;

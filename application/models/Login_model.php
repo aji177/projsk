@@ -14,6 +14,11 @@ class Login_model extends CI_Model
     {
         return $this->session->userdata('id_admin');
     }
+
+    public function user_session()
+    {
+        return $this->session->userdata('nik');
+    }
 }
 
 /* End of file Login_model.php */

@@ -84,7 +84,11 @@
                     <a class="nav-link page-scroll" href="#contact">CONTACT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-solid-reg" href="">PENDAFTARAN</a>
+                    <?php if ($this->session->userdata('nik')) : ?>
+                        <a class="btn btn-solid-reg" href="<?= base_url('user') ?>">BUKA PANEL</a>
+                    <?php else : ?>
+                        <a class="btn btn-solid-reg" href="<?= base_url('user/login') ?>">PENDAFTARAN</a>
+                    <?php endif; ?>
                 </li>
 
             </ul>
@@ -122,7 +126,7 @@
                             <h1>WELCOME<br>IN <span id="js-rotating">POLRES, POLRESTA BANDA ACEH</span></h1>
                             <p class="p-large">Kepolisian Republik Indonesia (POLRES) berkomitmen siap mempermudah proses pengurusan SKCK</p>
                             <!-- <a class="btn-solid-lg page-scroll" href="#your-link"><i class="fab fa-apple"></i>APP STORE</a> -->
-                            <a class="btn-solid-lg page-scroll" href="#your-link" target="_blank">PENDAFTARAN</a>
+                            <a class="btn-solid-lg page-scroll" href="<?= base_url('user/login') ?>" target="_blank">PENDAFTARAN</a>
                         </div>
                     </div> <!-- end of col -->
                     <div class="col-lg-6">

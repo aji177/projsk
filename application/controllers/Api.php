@@ -118,6 +118,101 @@ class Api extends RestController
             ],
         ], 200);
     }
+
+    public function laporan_skck_get()
+    {
+        $this->load->model('SKCK_model', 'skck');
+        $data = $this->skck->getSKCKBetweenDate(date('Y-m-d', strtotime('-1 month', time())), date('Y-m-d 23:59:59'));
+
+        return $this->response([
+            'errors' => false,
+            'length' => $data->num_rows(),
+            'data' => $data->result_object(),
+        ], 200);
+    }
+
+    public function laporan_skck_post()
+    {
+        $this->load->model('SKCK_model', 'skck');
+        $date_start = $this->input->post('tanggal_awal');
+        $date_end = $this->input->post('tanggal_akhir');
+        $data = $this->skck->getSKCKBetweenDate(date('Y-m-d 00:00:00', strtotime($date_start)), date('Y-m-d 23:59:59', strtotime($date_end)));
+
+        return $this->response([
+            'errors' => false,
+            'length' => $data->num_rows(),
+            'data' => $data->result_object(),
+        ], 200);
+    }
+
+    public function user_login_post()
+    {
+        if (isset($_POST['nik']) && isset($_POST['nama'])) {
+            $nik = $this->input->post('nik');
+            $nama = $this->input->post('nama');
+            $data_ktp_offline = $this->db
+                ->order_by('id_nik', 'DESC')
+                ->get_where('data_nik', [
+                    'no_ktp' => $nik,
+                    'nama' => $nama
+                ]);
+
+            $array = array(
+                'nik' => $nik
+            );
+            $this->session->set_userdata($array);
+
+            if ($data_ktp_offline->num_rows() == 0) {
+                $object = [
+                    'no_ktp' => $nik,
+                    'nama' => $nama,
+                    'is_full' => 0
+                ];
+
+                $this->db->insert('data_nik', $object);
+
+                return $this->response([
+                    'errors' => false,
+                    'redirect' => base_url('user/formulir_skck'),
+                    'data' => [
+                        $nik, $nama
+                    ],
+                ], 200);
+            }
+
+            return $this->response([
+                'errors' => false,
+                'redirect' => base_url('user/formulir_skck'),
+                'data' => [
+                    $nik, $nama
+                ],
+            ], 200);
+        } else {
+            return $this->response([
+                'errors' => true,
+                'messages' => 'You Did Not Request Any Data'
+            ], 404);
+        }
+    }
+
+    public function print_done_post()
+    {
+        $id_skck = $this->input->post('id_skck');
+
+        $respon = $this->db->update('data_skck', ['is_print' => 1], ['id_skck' => $id_skck]);
+
+        if ($respon > 0) {
+            return $this->response([
+                'errors' => false,
+                'messages' => 'Status Cetak berkas ini telah di perbaharui'
+            ], 200);
+        } else {
+            return $this->response([
+                'errors' => true,
+                'messages' => 'Status Cetak berkas ini gagal di perbaharui. Mohon Periksa Koneksi anda'
+            ], 404);
+        }
+    }
 }
 
 /* End of file Api.php */

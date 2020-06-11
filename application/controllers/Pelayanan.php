@@ -10,6 +10,7 @@ class Pelayanan extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('Login_model');
         $this->load->model('Keperluan_model', 'keperluan');
+        $this->load->model('SKCK_model', 'skck');
     }
 
     public function index()
@@ -122,20 +123,24 @@ class Pelayanan extends CI_Controller
                 $this->session->set_flashdata('error', "Mohon Isi data terlebih dahulu.");
                 redirect(base_url('pelayanan/buat_skck_offline'));
             }
-            $this->load->model('SKCK_model', 'skck');
 
-            $skck = $this->skck->getSKCKOffline($id_skck);
+            $skck = $this->skck->getSKCK($id_skck);
             $nomor = $this->skck->getNomorSKCK($skck->nomor);
+            if (!is_null($skck)) {
 
-            $data = [
-                'title' => 'Print Skck',
-                'skck' => $skck,
-                'nomor_skck' => $nomor->format,
-                'template' => $this->db->order_by('id_template', 'DESC')
-                    ->get('template_skck', 1)->row_object(),
-            ];
+                $data = [
+                    'title' => 'Print Skck',
+                    'skck' => $skck,
+                    'nomor_skck' => $nomor->format,
+                    'template' => $this->db->order_by('id_template', 'DESC')
+                        ->get('template_skck', 1)->row_object(),
+                ];
 
-            $this->load->view('admin/print-view', $data);
+                $this->load->view('admin/print-view', $data);
+            } else {
+                $this->session->set_flashdata('error', "tidak ada data ditemukan. Pastikan untuk mengisi data sebelum mencetak data");
+                redirect(base_url('pelayanan/buat_skck_offline'));
+            }
         }
     }
 
@@ -192,103 +197,116 @@ class Pelayanan extends CI_Controller
         redirect(base_url('pelayanan/login'));
     }
 
-    // Logical Input Data
-    public function input_skck_offline()
+    public function insert_skck_offline()
     {
-        $nomor = explode('/', $this->input->post('nomor_skck'));
-        $romawi = $this->db->get_where('bulan_romawi', ['id' => date('n')])->row_object()->romawi;
-        $respon = $this->db->insert('no_skck', [
-            'no_skck' => $nomor[2],
-            'bulan' => $romawi,
-            'tahun' => date('Y'),
-            'divisi' => $nomor[6],
-            'format' => $this->input->post('nomor_skck'),
-            'create_at' => time()
-        ]);
-        $id_nomor_skck = $this->db->insert_id();
-        if ($respon > 0) {
-            $data = [
-                'nomor' => $this->db->insert_id(),
-                'no_ktp' => $this->input->post('nik'),
-                'paspor' => $this->input->post('paspor'),
-                'nama' => $this->input->post('nama'),
-                'jk' => $this->input->post('jk'),
-                'kebangsaan' => 'Indonesia',
-                'agama' => $this->input->post('agama'),
-                'tempat_lahir' => $this->input->post('tempat_lahir'),
-                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                'alamat' => $this->input->post('nama_jalan')
-                    . ' RT ' . $this->input->post('rt')
-                    . '/ RW ' .  $this->input->post('rw')
-                    . ', Kel. ' .  $this->db->select('nama_desa')
-                        ->from('desa')->where('id', $this->input->post('kelurahan'))
-                        ->get()->row_array()['nama_desa']
-                    . ', Kec. ' .  $this->db->select('nama_kecamatan')
-                        ->from('kecamatan')->where('id', $this->input->post('kecamatan'))
-                        ->get()->row_array()['nama_kecamatan']
-                    . ', ' .  $this->db->select('nama_kabkota')
-                        ->from('kabkota')->where('id', $this->input->post('kota'))
-                        ->get()->row_array()['nama_kabkota'],
-                'pekerjaan' => $this->input->post('pekerjaan'),
-                'rumus_1_jari' => $this->input->post('rumus_1'),
-                'rumus_2_jari' => $this->input->post('rumus_2'),
-                'rumus_3_jari' => $this->input->post('rumus_3'),
-                'rumus_4_jari' => $this->input->post('rumus_4'),
-                'rumus_5_jari' => $this->input->post('rumus_5'),
-                'rumus_6_jari' => $this->input->post('rumus_6'),
-                'rumus_7_jari' => $this->input->post('rumus_7'),
-                'rumus_8_jari' => $this->input->post('rumus_8'),
-                'rumus_9_jari' => $this->input->post('rumus_9'),
-                'rumus_10_jari' => $this->input->post('rumus_10'),
-                'rumus_11_jari' => $this->input->post('rumus_11'),
-                'rumus_12_jari' => $this->input->post('rumus_12'),
-                'berada_di_indonesia_dari' => $this->input->post('tinggal_dari'),
-                'keperluan' => $this->input->post('keperluan'),
-                'catatan_kriminal' => '',
-                'catatan_kriminal_en' => ''
-            ];
-            $respon = $this->db->insert('data_skck_offline', $data);
-
+        $data_ktp = $this->skck->input_data_ktp();
+        if ($data_ktp['respon'] > 0) {
+            $nomor = explode('/', $this->input->post('nomor_skck'));
+            $romawi = $this->db->get_where('bulan_romawi', ['id' => date('n')])->row_object()->romawi;
+            $respon = $this->db->insert('no_skck', [
+                'no_skck' => $nomor[2],
+                'bulan' => $romawi,
+                'tahun' => date('Y'),
+                'divisi' => $nomor[6],
+                'format' => $this->input->post('nomor_skck'),
+                'create_at' => time()
+            ]);
+            $id_nomor_skck = $this->db->insert_id();
             if ($respon > 0) {
-                $id = $this->db->insert_id();
-                mkdir(FCPATH . 'uploads/' . "$id/", 0777, true);
-                $simpan = $this->input->post('simpan');
+                $data = [
+                    'tiket' => '',
+                    'nomor' => $id_nomor_skck,
+                    'id_ktp' => $data_ktp['id'],
+                    'Alamat' => $this->input->post('nama_jalan')
+                        . ', Kel. ' .  $this->db->select('nama_desa')
+                            ->from('desa')->where('id', $this->input->post('kelurahan'))
+                            ->get()->row_array()['nama_desa']
+                        . ', Kec. ' .  $this->db->select('nama_kecamatan')
+                            ->from('kecamatan')->where('id', $this->input->post('kecamatan'))
+                            ->get()->row_array()['nama_kecamatan']
+                        . ', ' .  $this->db->select('nama_kabkota')
+                            ->from('kabkota')->where('id', $this->input->post('kota'))
+                            ->get()->row_array()['nama_kabkota'],
+                    'rumus_1_jari' => $this->input->post('rumus_1'),
+                    'rumus_2_jari' => $this->input->post('rumus_2'),
+                    'rumus_3_jari' => $this->input->post('rumus_3'),
+                    'rumus_4_jari' => $this->input->post('rumus_4'),
+                    'rumus_5_jari' => $this->input->post('rumus_5'),
+                    'rumus_6_jari' => $this->input->post('rumus_6'),
+                    'rumus_7_jari' => $this->input->post('rumus_7'),
+                    'rumus_8_jari' => $this->input->post('rumus_8'),
+                    'rumus_9_jari' => $this->input->post('rumus_9'),
+                    'rumus_10_jari' => $this->input->post('rumus_10'),
+                    'rumus_11_jari' => $this->input->post('rumus_11'),
+                    'rumus_12_jari' => $this->input->post('rumus_12'),
+                    'berada_di_indonesia_dari' => $this->input->post('tinggal_dari'),
+                    'keperluan' => $this->input->post('keperluan'),
+                    'catatan_kriminal' => $this->input->post('catatan_kriminal'),
+                    'catatan_kriminal_en' => $this->input->post('catatan_kriminal_en'),
+                    'create_from' => 'offline',
+                ];
+                $respon = $this->db->insert('data_skck', $data);
 
-                if ($simpan == 'simpan') {
-                    $sidik_jari = [
-                        'ibu_jari_kanan',
-                        'telunjuk_jari_kanan',
-                        'jari_tengah_kanan',
-                        'jari_manis_kanan',
-                        'jari_kelingking_kanan',
-                        'ibu_jari_kiri',
-                        'telunjuk_jari_kiri',
-                        'jari_tengah_kiri',
-                        'jari_manis_kiri',
-                        'jari_kelingking_kiri',
-                    ];
-                    for ($i = 0; $i <= count($sidik_jari); $i++) :
-                        $this->upload($sidik_jari[$i], $id);
-                    endfor;
+                if ($respon > 0) {
+                    $id = $this->db->insert_id();
+                    mkdir(FCPATH . 'uploads/' . "$id/", 0777, true);
+                    $simpan = $this->input->post('simpan');
+
+                    if ($simpan == 'simpan') {
+                        $sidik_jari = [
+                            'ibu_jari_kanan',
+                            'telunjuk_jari_kanan',
+                            'jari_tengah_kanan',
+                            'jari_manis_kanan',
+                            'jari_kelingking_kanan',
+                            'ibu_jari_kiri',
+                            'telunjuk_jari_kiri',
+                            'jari_tengah_kiri',
+                            'jari_manis_kiri',
+                            'jari_kelingking_kiri',
+                        ];
+                        for ($i = 0; $i <= count($sidik_jari); $i++) :
+                            $this->upload($sidik_jari[$i], $id);
+                        endfor;
+                    }
+
+                    $this->upload('foto_ktp', $id);
+                    $this->upload('ktp', $id);
+                    $this->upload('sidik_ktp', $id);
+                    $this->upload('signature_ktp', $id);
+                    $this->upload('lampiran_ktp', $id);
+                    $this->upload('lampiran_kk', $id);
+                    $this->upload('lampiran_ijazah', $id);
+                    echo json_encode([
+                        'errors' => 0,
+                        'messages' =>  "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Atas nama Sdr. " . $this->input->post('nama') . " Berhasil dibuat.",
+                        'redirect' => base_url('pelayanan/print/' . $id),
+                        'data' => [],
+                    ]);
+                } else {
+                    $this->db->delete('no_skck', ['id_no_skck' => $id_nomor_skck]);
+                    echo json_encode([
+                        'errors' => 1,
+                        'messages' => 'error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.",
+                        'redirect' => base_url('pelayanan/buat_skck_offline'),
+                        'data' => [],
+                    ]);
                 }
-
-                $this->upload('foto_ktp', $id);
-                $this->upload('ktp', $id);
-                $this->upload('sidik_ktp', $id);
-                $this->upload('signature_ktp', $id);
-                $this->upload('lampiran_ktp', $id);
-                $this->upload('lampiran_kk', $id);
-                $this->upload('lampiran_ijazah', $id);
-                $this->session->set_flashdata('success', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Atas nama Sdr. " . $this->input->post('nama') . " Berhasil dibuat.");
-                redirect(base_url('pelayanan/print/' . $id));
             } else {
-                $this->db->delete('no_skck', ['id_no_skck' => $id_nomor_skck]);
-                $this->session->set_flashdata('error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.");
-                redirect(base_url('pelayanan/buat_skck_offline'));
+                echo json_encode([
+                    'errors' => 1,
+                    'messages' => 'error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.",
+                    'redirect' => base_url('pelayanan/buat_skck_offline'),
+                    'data' => [],
+                ]);
             }
         } else {
-            $this->session->set_flashdata('error', "Data SKCK Dengan Nomor " . $this->input->post('nomor_skck') . " Gagal Dibuat. Periksa Koneksi Internet.");
-            redirect(base_url('pelayanan/buat_skck_offline'));
+            echo json_encode([
+                'errors' => 1,
+                'messages' => 'error', "Data SKCK Dengan NIK KTP " . $this->input->post('nik') . " Gagal Dibuat. Periksa Koneksi Internet.",
+                'data' => [],
+                'redirect' => base_url('pelayanan/buat_skck_offline'),
+            ]);
         }
     }
 
