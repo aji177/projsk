@@ -1,0 +1,122 @@
+@media print {
+  * {
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .tiket-container {
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+
+  .tiket-container .tiket-header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: -ms-flexbox;
+    display: flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
+  }
+
+  .tiket-header img#tiket-header-img,
+  .tiket-header .barcode {
+    min-height: 1.5cm;
+  }
+
+  .tiket-header .barcode {
+    background-color: #fff;
+    padding: 0.5rem;
+  }
+
+  .barcode {
+    width: 45%;
+    display: flex;
+    display: -ms-flexbox;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+  }
+
+  .barcode img {
+    height: 1.25cm;
+    margin-bottom: 0.5rem;
+  }
+
+  .barcode .code {
+    width: 100%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+  }
+
+  .tiket-body {
+    width: 100%;
+    display: flex;
+    display: -ms-flexbox;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+  }
+
+  .tiket-body .pasphoto {
+    width: 4cm;
+    height: 6cm;
+    margin-right: 1rem;
+  }
+
+  .pasphoto img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .tiket-body .bagan {
+    width: calc(100% - 4cm);
+    box-sizing: border-box;
+  }
+
+  .bagan table {
+    width: 100%;
+    min-height: 6cm;
+  }
+
+  .bagan table td:first-child {
+    width: 3.85cm;
+  }
+
+  .bagan table td {
+    vertical-align: top;
+  }
+
+  .tiket-footer p {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tiket-footer p:first-child {
+    font-size: 16pt;
+    font-weight: bold;
+  }
+}
+
+@page {
+  margin-top: 0.5cm;
+  margin-left: 0.5cm;
+  margin-bottom: 0.5cm;
+  margin-right: 0.5cm;
+}

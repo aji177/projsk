@@ -95,7 +95,12 @@
                                                 <td><?= strftime('Tanggal %e %B %Y, Jam %I:%M %p', strtotime($request_at)) ?></td>
                                                 <td><?= strftime('Tanggal %e %B %Y, Jam %I:%M %p', strtotime('+1 WEEK', strtotime($request_at))) ?></td>
                                                 <td>
-                                                    <a href="#" class="btn btn-success"><i class="fa fa-print" style="margin-right: .75rem;"></i>Cetak Tiket</a>
+                                                    <div class="btn-group-vertical">
+                                                        <a href="<?= base_url('user/tiket') ?>" class="btn btn-success" target="_blank">
+                                                            <i class="fa fa-print" style="margin-right: .75rem;"></i>Cetak Tiket</a>
+                                                        <a href="<?= base_url('user/ubah_formulir') ?>" class="btn btn-warning" target="_blank">
+                                                            <i class="fa fa-pencil" style="margin-right: .75rem;"></i>Ubah Data</a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php endif; ?>

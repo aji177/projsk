@@ -51,12 +51,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">Cari Data SKCK</h3>
-                            <form class="form-group" method="POST" enctype="multipart/form-data" action="<?= base_url('pelayanan/multiple_file') ?>">
-                                <input type="file" name="file1">
-                                <input type="file" name="file2[]">
-                                <input type="file" name="file2[]">
-                                <button type="submit">submit</button>
+                            <h3 class="box-title text-center">FOrm SKCK Online</h3>
+                            <form class="form-horizontal" id="form_online">
+                                <div class="form-group">
+                                    <label for="barcode_reader" class="col-xs-3 control-label">Barcode Reader</label>
+                                    <div class="col-xs-4">
+                                        <button class="btn btn-primary" type="button" id="barcode_reader" data-toggle="modal" data-target="#exampleModal">
+                                            Start Scanning
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kode_tiket" class="col-xs-3 control-label">Kode Tiket</label>
+                                    <div class="col-xs-5">
+                                        <input type="text" name="kode_tiket" id="kode_tiket" class="form-control" placeholder="Kode Tiket Pengajuan SKCK" required>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button class="btn btn-success" type="submit">Buat SKCK</button>
+                                    </div>
+                                </div>
                             </form>
                             <img id="img" src="<?= base_url('pelayanan/image/1/contoh') ?>" alt="" srcset="">
                         </div>
@@ -69,6 +82,23 @@
             <!-- Footer -->
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Barcode Scanner Camera</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="scanner_cam" class="container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- jQuery -->
     <script src="<?= base_url('app/') ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -79,7 +109,90 @@
     <script src="<?= base_url('app/') ?>js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="<?= base_url('app/') ?>js/waves.js"></script>
+    <!-- QuaggaJS Barcode Reader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#exampleModal').on('shown.bs.modal', function() {
+                var scannerCam = document.getElementById('scanner_cam');
+                var App = {
+                    init: function() {
+                        var self = this;
 
+                        Quagga.init(this.config, function(err) {
+                            if (err) {
+                                return self.handleError(err);
+                            }
+                            Quagga.start();
+                        });
+                    },
+                    handleError: function(err) {
+                        console.log(err);
+                    },
+                    config: {
+                        inputStream: {
+                            target: scannerCam,
+                            type: "LiveStream",
+                            constraints: {
+                                width: {
+                                    min: 640
+                                },
+                                height: {
+                                    min: 480
+                                },
+                                facingMode: "environment",
+                                aspectRatio: {
+                                    min: 1,
+                                    max: 2
+                                }
+                            }
+                        },
+                        locator: {
+                            patchSize: "medium",
+                            halfSample: true
+                        },
+                        numOfWorkers: 2,
+                        frequency: 10,
+                        decoder: {
+                            readers: [{
+                                format: "code_128_reader",
+                                config: {}
+                            }]
+                        },
+                        locate: true
+                    }
+                };
+
+                App.init();
+
+                function scanItem(code) {
+                    scanBeep.play();
+                    var el = document.createElement('li');
+                    el.innerText = code;
+                    document.getElementsByClassName('codes-list')[0].appendChild(el);
+                    scannerCam.classList.add('scanner-cam--scanned');
+                }
+
+                var debouncedScanner = _.debounce(scanItem, 1000, true);
+                var styleTimer;
+
+                Quagga.onDetected((result) => {
+                    var code = result.codeResult.code;
+
+                    if (!code.match(/[0-9]+\/[0-9]+\/[A-Z]+\/[0-9]+/g)) {
+                        console.log(code);
+                        return;
+                    }
+                    debouncedScanner(code);
+                    clearTimeout(styleTimer);
+
+                    styleTimer = setTimeout(function() {
+                        scannerCam.classList.remove('scanner-cam--scanned');
+                    }, 1000);
+                });
+            })
+        })
+    </script>
 </body>
 
 </html>

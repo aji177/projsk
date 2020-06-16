@@ -7,6 +7,7 @@ class User extends CI_Controller
 
     protected $user;
     protected $request_skck;
+    protected $file_lampiran;
 
     public function __construct()
     {
@@ -18,7 +19,16 @@ class User extends CI_Controller
             $this->userData();
             $this->last_request_skck();
             $this->cekKadaluarsa();
+            $this->lampiran();
         }
+    }
+
+    private function lampiran()
+    {
+        $data = $this->db->get_where('lampiran', [
+            'id_skck' => $this->request_skck['id_skck'],
+        ])->result_array();
+        $this->file_lampiran = $data;
     }
 
     private function cekKadaluarsa()
@@ -33,7 +43,13 @@ class User extends CI_Controller
 
     private function userData()
     {
-        $data = $this->db->get_where('data_nik', ['no_ktp' => $this->session->userdata('nik')])->row_object();
+        $this->db->select('data_nik.*, desa.nama_desa, kecamatan.nama_kecamatan, kabkota.nama_kabkota');
+        $this->db->from('data_nik');
+        $this->db->join('desa', 'desa.id = data_nik.id_desa');
+        $this->db->join('kecamatan', 'kecamatan.id = data_nik.id_kecamatan');
+        $this->db->join('kabkota', 'kabkota.id = data_nik.id_kota');
+        $this->db->where('data_nik.no_ktp', $this->session->userdata('nik'));
+        $data = $this->db->get()->row_object();
         $this->user = $data;
     }
 
@@ -102,6 +118,39 @@ class User extends CI_Controller
                 ->get()->result_object()
         ];
         $this->load->view('user/riwayat', $data);
+    }
+
+    public function ubah_formulir()
+    {
+        $data = [
+            'title' => 'Ubah Formulir SKCK',
+            'user' => $this->user,
+            'request_skck' => $this->request_skck,
+            'kabkota' => $this->db->get_where('kabkota', ['provinsi_id' => 11])->result_object(),
+            'data_keperluan' => $this->db->get('tb_keperluan')->result_array(),
+            'check_keperluan' => function () {
+                $data = $this->db->get_where('tb_keperluan', ['keperluan_nama' => $this->request_skck['keperluan']]);
+
+                if ($data->num_rows() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            'lampiran' => $this->file_lampiran
+        ];
+
+        $this->load->view('user/tiket_update', $data);
+    }
+
+    public function tiket()
+    {
+        $data = [
+            'title' => 'Cetak Tiket ' . $this->request_skck['tiket'],
+            'user' => $this->user,
+            'request_skck' => $this->request_skck,
+        ];
+        $this->load->view('user/tiket', $data, FALSE);
     }
 
     public function login()
@@ -192,57 +241,110 @@ class User extends CI_Controller
         }
     }
 
+    public function update()
+    {
+        $object = [
+            'no_ktp' => $this->input->post('nik'),
+            'paspor' => $this->input->post('paspor'),
+            'jk' => $this->input->post('jk'),
+            'kebangsaan' => 'Indonesia',
+            'agama' => $this->input->post('agama'),
+            'tempat_lahir' => $this->input->post('tempat_lahir'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'nama_jalan' => $this->input->post('nama_jalan'),
+            'rt' => $this->input->post('rt'),
+            'rw' => $this->input->post('rw'),
+            'id_desa' => $this->input->post('kelurahan'),
+            'id_kecamatan' => $this->input->post('kecamatan'),
+            'id_kota' => $this->input->post('kota'),
+            'pekerjaan' => $this->input->post('pekerjaan'),
+            'is_full' => 1
+        ];
+
+        $respon = $this->db->update('data_nik', $object, [
+            'id_nik' => $this->user->id_nik
+        ]);
+
+        if ($respon > 0) {
+            $data = [
+                'id_ktp' => $this->user->id_nik,
+                'alamat' =>  $this->input->post('nama_jalan')
+                    . ', Kel. ' .  $this->db->select('nama_desa')
+                        ->from('desa')->where('id', $this->input->post('kelurahan'))
+                        ->get()->row_array()['nama_desa']
+                    . ', Kec. ' .  $this->db->select('nama_kecamatan')
+                        ->from('kecamatan')->where('id', $this->input->post('kecamatan'))
+                        ->get()->row_array()['nama_kecamatan']
+                    . ', ' .  $this->db->select('nama_kabkota')
+                        ->from('kabkota')->where('id', $this->input->post('kota'))
+                        ->get()->row_array()['nama_kabkota'],
+                'berada_di_indonesia_dari' => $this->input->post('tinggal_dari'),
+                'keperluan' => $this->input->post('keperluan'),
+                'create_from' => 'online',
+            ];
+
+            $respon = $this->db->update('data_skck', $data, ['id_skck' => $this->request_skck['id_skck']]);
+            $id_skck = $this->request_skck['id_skck'];
+
+            if ($respon > 0) {
+                $this->upload('foto_ktp', $id_skck);
+                $this->upload('lampiran_ktp', $id_skck);
+                $this->upload('lampiran_kk', $id_skck);
+                $this->upload('lampiran_ijazah', $id_skck);
+
+                echo json_encode([
+                    'errors' => false,
+                    'messages' => 'Selamat, Permintaan anda telah diajukan. Masuk ke halaman Pengajuan SKCK untuk mengambil Tiket anda.',
+                ]);
+            } else {
+                echo json_encode([
+                    'errors' => true,
+                    'messages' => 'Maaf, Tidak dapat membuat data SKCK anda. Coba periksa sambungan internet anda.',
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'errors' => true,
+                'messages' => 'Maaf, Tidak dapat membuat data SKCK anda. Coba periksa sambungan internet anda.',
+            ]);
+        }
+    }
+
     private function upload(string $file, int $id_skck)
     {
         $upload = $_FILES[$file];
 
         if ($upload['name'] != null) {
-            if (is_array($upload['name'])) {
-                $files_num = sizeof($upload['tmp_name']);
+            $config['upload_path'] = FCPATH . 'uploads/' . "$id_skck/";
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+            $config['max_size']  = '4000';
 
-                $config['upload_path'] = FCPATH . 'uploads/' . "$id_skck/";
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-                $config['max_size']  = '4000';
-                for ($i = 0; $i < $files_num; $i++) {
-                    if ($upload['name'][$i] != null) {
-                        $_FILES[$file]['name'] = $upload['name'][$i];
-                        $_FILES[$file]['type'] = $upload['type'][$i];
-                        $_FILES[$file]['tmp_name'] = $upload['tmp_name'][$i];
-                        $_FILES[$file]['error'] = $upload['error'][$i];
-                        $_FILES[$file]['size'] = $upload['size'][$i];
-
-                        $this->upload->initialize($config);
-                        if ($this->upload->do_upload($file)) {
-                            $this->db->insert('lampiran', [
-                                'id_skck' => $id_skck,
-                                'file' => $this->upload->data()['file_name'],
-                                'name' => $file
-                            ]);
-                            echo "success";
-                        } else {
-                            $error = array('error' => $this->upload->display_errors());
-                            print_r($error);
-                        }
-                    }
-                }
-            } else {
-                $config['upload_path'] = FCPATH . 'uploads/' . "$id_skck/";
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-                $config['max_size']  = '4000';
-
-                $this->upload->initialize($config);
-                if (!$this->upload->do_upload($file)) {
-                    $error = array('error' => $this->upload->display_errors());
-                    print_r($error);
-                } else {
-                    $this->db->insert('lampiran', [
-                        'id_skck' => $id_skck,
-                        'file' => $this->upload->data()['file_name'],
-                        'name' => $file
-                    ]);
-                    echo "success";
-                }
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload($file)) {
+                $this->check_file($id_skck, $file, $this->upload->data()['file_name']);
             }
+        }
+    }
+
+    private function check_file($id_skck, $name, $file)
+    {
+        $data = $this->db->get_where('lampiran', [
+            'id_skck' => $id_skck,
+            'name' => $name
+        ]);
+
+        if ($data->num_rows() > 0) {
+            unlink(FCPATH . 'uploads/' . "$id_skck/" . $data->row_object()->file);
+            $object = [
+                'file' => $file,
+            ];
+            $this->db->update('lampiran', $object, ['id_lampiran' => $data->row_object()->id_lampiran]);
+        } else {
+            $this->db->insert('lampiran', [
+                'id_skck' => $id_skck,
+                'file' => $file,
+                'name' => $name
+            ]);
         }
     }
 
