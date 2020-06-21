@@ -151,16 +151,11 @@ class Api extends RestController
             $nik = $this->input->post('nik');
             $nama = $this->input->post('nama');
             $data_ktp_offline = $this->db
+                ->select('*')
+                ->from('data_nik')
+                ->where("no_ktp", $nik)
                 ->order_by('id_nik', 'DESC')
-                ->get_where('data_nik', [
-                    'no_ktp' => $nik,
-                    'nama' => $nama
-                ]);
-
-            $array = array(
-                'nik' => $nik
-            );
-            $this->session->set_userdata($array);
+                ->get();
 
             if ($data_ktp_offline->num_rows() == 0) {
                 $object = [
@@ -171,6 +166,11 @@ class Api extends RestController
 
                 $this->db->insert('data_nik', $object);
 
+                $array = array(
+                    'nik' => $nik
+                );
+                $this->session->set_userdata($array);
+
                 return $this->response([
                     'errors' => false,
                     'redirect' => base_url('user/formulir_skck'),
@@ -178,20 +178,32 @@ class Api extends RestController
                         $nik, $nama
                     ],
                 ], 200);
+            } else {
+                $user = $data_ktp_offline->row_array();
+                if ($user['nama'] === $nama) {
+                    $array = array(
+                        'nik' => $nik
+                    );
+                    $this->session->set_userdata($array);
+                    return $this->response([
+                        'errors' => false,
+                        'redirect' => base_url('user/formulir_skck'),
+                        'data' => [
+                            $user['no_ktp'], $user['nama']
+                        ],
+                    ], 200);
+                } else {
+                    return $this->response([
+                        'errors' => true,
+                        'messages' => 'Nama Yang Anda Masukkan Salah. Pastikan Nama anda sesuai dengan apa yang anda daftarkan.'
+                    ], 200);
+                }
             }
-
-            return $this->response([
-                'errors' => false,
-                'redirect' => base_url('user/formulir_skck'),
-                'data' => [
-                    $nik, $nama
-                ],
-            ], 200);
         } else {
             return $this->response([
                 'errors' => true,
-                'messages' => 'You Did Not Request Any Data'
-            ], 404);
+                'messages' => 'Kamu tidak memasukkan data apapun'
+            ], 200);
         }
     }
 
@@ -199,7 +211,10 @@ class Api extends RestController
     {
         $id_skck = $this->input->post('id_skck');
 
-        $respon = $this->db->update('data_skck', ['is_print' => 1], ['id_skck' => $id_skck]);
+        $respon = $this->db->update('data_skck', [
+            'create_at' => date('Y-m-d h:i:s'),
+            'is_print' => 1,
+        ], ['id_skck' => $id_skck]);
 
         if ($respon > 0) {
             return $this->response([

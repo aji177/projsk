@@ -17,7 +17,7 @@ class User extends CI_Controller
         setlocale(LC_TIME, 'id_ID');
         if ($this->login->user_session()) {
             $this->userData();
-            $this->last_request_skck();
+            // $this->last_request_skck();
             $this->cekKadaluarsa();
             $this->lampiran();
         }
@@ -49,8 +49,13 @@ class User extends CI_Controller
         $this->db->join('kecamatan', 'kecamatan.id = data_nik.id_kecamatan');
         $this->db->join('kabkota', 'kabkota.id = data_nik.id_kota');
         $this->db->where('data_nik.no_ktp', $this->session->userdata('nik'));
-        $data = $this->db->get()->row_object();
-        $this->user = $data;
+        $data = $this->db->get();
+        if ($data->num_rows() > 0) {
+            $this->user = $data->row_object();
+        } else {
+            $data = $this->db->get_where('data_nik', ['no_ktp' => $this->session->userdata('nik')]);
+            $this->user = $data->row_object();
+        }
     }
 
     private function last_request_skck()

@@ -60,6 +60,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
+                            <h3 class="box-title">Form SKCK Online <?= array_key_exists('kode_tiket', $_GET) ? '|| Kode Tiket : ' . $_GET['kode_tiket'] : '' ?></h3>
                             <div id="alert" class="alert alert-warning">
                                 <i class="fa fa-refresh fa-spin" style="margin-right: 1rem;"></i>
                                 <span id="messages"></span>
@@ -112,29 +113,30 @@
 
                                         <div class="wizard-pane active" role="tabpanel">
                                             <div class="row">
+                                                <input type="text" name="id_skck" value="<?= $data_skck->id_skck ?>" hidden>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">NIK</label>
                                                         <div class="col-xs-5">
-                                                            <input type="text" class="form-control" name="nik" id="nik" placeholder="Nomor NIK KTP" required />
+                                                            <input type="text" class="form-control" name="nik" id="nik" placeholder="Nomor NIK KTP" value="<?= $data_skck->no_ktp ?>" required />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Paspor</label>
                                                         <div class="col-xs-7">
-                                                            <input type="text" class="form-control" name="paspor" id="paspor" placeholder="Nomor Paspor (Jika Ada)" />
+                                                            <input type="text" class="form-control" name="paspor" id="paspor" placeholder="Nomor Paspor (Jika Ada)" value="<?= $data_skck->paspor ?>" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Nama</label>
                                                         <div class="col-xs-7">
-                                                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Sesuai AKTE / IJAZAH" required />
+                                                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Sesuai AKTE / IJAZAH" value="<?= $data_skck->nama ?>" required />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Tempat Lahir</label>
                                                         <div class="col-xs-7">
-                                                            <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" placeholder="Tempat Lahir" required />
+                                                            <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" placeholder="Tempat Lahir" value="<?= $data_skck->tempat_lahir ?>" required />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -142,7 +144,7 @@
                                                         <div class="col-xs-7">
                                                             <div class="input-group date-container">
                                                                 <span id="tl-container" class="input-group-addon"><i class="icon-calender"></i></span>
-                                                                <input type="text" class="form-control date-pick-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" required />
+                                                                <input type="text" class="form-control date-pick-control" id="tanggal_lahir" name="tanggal_lahir" value="<?= $data_skck->tanggal_lahir ?>" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -151,7 +153,7 @@
                                                         <div class="col-xs-7">
                                                             <div class="input-group date-container">
                                                                 <span id="td-container" class="input-group-addon"><i class="icon-calender"></i></span>
-                                                                <input type="text" class="form-control date-pick-control" id="tinggal_dari" name="tinggal_dari" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" />
+                                                                <input type="text" class="form-control date-pick-control" id="tinggal_dari" name="tinggal_dari" value="<?= $data_skck->berada_di_indonesia_dari ?>" placeholder="tahun(yyyy)-bulan(mm)-tanggal(dd)" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -168,13 +170,13 @@
                                                         <label class="col-xs-3 control-label">Jenis Kelamin</label>
                                                         <div class="col-xs-2">
                                                             <div class="radio radio-success">
-                                                                <input type="radio" class="form-control" name="jk" id="jk" value="LAKI-LAKI" checked />
+                                                                <input type="radio" class="form-control" name="jk" id="jk" value="LAKI-LAKI" <?= $data_skck->jk == 'LAKI-LAKI' ? 'checked' : '' ?> />
                                                                 <label for="jk">LAKI-LAKI</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-2">
                                                             <div class="radio radio-success">
-                                                                <input type="radio" class="form-control" name="jk" id="jk" value="PEREMPUAN" />
+                                                                <input type="radio" class="form-control" name="jk" id="jk" value="PEREMPUAN" <?= $data_skck->jk == 'PEREMPUAN' ? 'checked' : '' ?> />
                                                                 <label for="jk">PEREMPUAN</label>
                                                             </div>
                                                         </div>
@@ -182,7 +184,7 @@
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Alamat</label>
                                                         <div class="col-xs-9">
-                                                            <input type="text" name="nama_jalan" id="nama_jalan" class="form-control" placeholder="Nama Jalan" required />
+                                                            <input type="text" name="nama_jalan" id="nama_jalan" class="form-control" placeholder="Nama Jalan" value="<?= $data_skck->nama_jalan ?>" required />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -190,13 +192,13 @@
                                                         <div class="col-xs-2">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">RT</span>
-                                                                <input type="text" class="form-control" id="rt" name="rt" placeholder="RT" />
+                                                                <input type="text" class="form-control" id="rt" name="rt" value="<?= $data_skck->rt ?>" placeholder="RT" />
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-2">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">RW</span>
-                                                                <input type="text" class="form-control" id="rw" name="rw" placeholder="RW" />
+                                                                <input type="text" class="form-control" id="rw" name="rw" value="<?= $data_skck->rw ?>" placeholder="RW" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,7 +210,7 @@
                                                                 <select name="kota" id="kota" class="form-control" required>
                                                                     <option value="">-- Pilih Kota/Kabupaten</option>
                                                                     <?php foreach ($kabkota as $kab) : ?>
-                                                                        <option value="<?= $kab->id ?>"><?= $kab->nama_kabkota ?></option>
+                                                                        <option value="<?= $kab->id ?>" <?= $data_skck->id_kota == $kab->id ? 'selected' : '' ?>><?= $kab->nama_kabkota ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
                                                             </div>
@@ -241,20 +243,16 @@
                                                         <div class="col-xs-4">
                                                             <select name="agama" id="agama" class="form-control" required>
                                                                 <option value="">-- Pilih Agama</option>
-                                                                <option value="Islam">Islam</option>
-                                                                <option value="Kristen Khatolik" lang="id">Kristen Khatolik</option>
-                                                                <option value="Kristen Protestan" lang="id">Kristen Protestan</option>
-                                                                <option value="Hindu">Hindu</option>
-                                                                <option value="Budha">Budha</option>
-                                                                <option value="Konhuchu">Konhuchu</option>
-                                                                <option value="Kepercayaan Terhadap Tuhan YME" lang="id">Kepercayaan Terhadap Tuhan YME</option>
+                                                                <?php foreach ($agama as $ag) : ?>
+                                                                    <option value="<?= $ag ?>" <?= $ag == $data_skck->agama ? 'selected' : '' ?>><?= $ag ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-3 control-label">Pekerjaan</label>
                                                         <div class="col-xs-5">
-                                                            <input type="text" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" class="form-control" required />
+                                                            <input type="text" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" class="form-control" value="<?= $data_skck->pekerjaan ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -314,27 +312,31 @@
                                         </div>
 
                                         <div class="wizard-pane" role="tabpanel">
+                                            <?php
+                                            $select = $check_keperluan($data_skck->keperluan) ? ['', 'checked', '', 'keperluan'] : ['disabled', '', '', ''];
+                                            $input = $check_keperluan($data_skck->keperluan) ? ['disabled', '', '', ''] : ['', 'checked', $data_skck->keperluan, 'keperluan'];
+                                            ?>
                                             <div class="form-group">
                                                 <label for="keperluan" class="col-xs-3 control-label">Keperluan</label>
                                                 <div class="col-xs-8">
-                                                    <select name="keperluan" id="keperluan" class="form-control">
+                                                    <select name="<?= $select[3] ?>" id="keperluan" class="form-control" <?= $select[0] ?>>
                                                         <option value="">-- Pilih Keperluan</option>
                                                         <?php foreach ($keperluan as $kep) : ?>
-                                                            <option value="<?= $kep->keperluan_nama ?>"><?= $kep->keperluan_nama ?></option>
+                                                            <option value="<?= $kep->keperluan_nama ?>" <?= $check_keperluan($kep->keperluan_nama) ? 'selected' : ''  ?>><?= $kep->keperluan_nama ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-1">
-                                                    <input type="radio" name="keperluan_action" id="" value="0" checked>
+                                                    <input type="radio" name="keperluan_action" id="" value="0" <?= $select[1] ?>>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="" class="col-xs-3 control-label"></label>
                                                 <div class="col-xs-8">
-                                                    <input type="text" id="keperluan_ekstra" name="" class="form-control" placeholder="(Isi Jika Tidak ada keperluan yang tersedia diatas)" disabled>
+                                                    <input type="text" id="keperluan_ekstra" name="<?= $input[3] ?>" class="form-control" value="<?= $input[2] ?>" placeholder="(Isi Jika Tidak ada keperluan yang tersedia diatas)" <?= $input[0] ?>>
                                                 </div>
                                                 <div class="col-xs-1">
-                                                    <input type="radio" name="keperluan_action" id="" value="1">
+                                                    <input type="radio" name="keperluan_action" id="" value="1" <?= $input[1] ?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +351,7 @@
                                             <div class="form-group">
                                                 <label class="col-xs-3 control-label">Foto Pemohon</label>
                                                 <div class="col-xs-2">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="foto_ktp" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="foto_ktp" data-max-file-size="2M" data-default-file="<?= base_url($lampiran['foto_ktp']) ?>" />
                                                 </div>
                                             </div>
                                         </div>
@@ -470,19 +472,19 @@
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Lampiran EKTP</label>
                                                 <div class="col-xs-3">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ktp" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ktp" data-max-file-size="2M" data-default-file="<?= base_url($lampiran['lampiran_ktp']) ?>" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Lampiran KK</label>
                                                 <div class="col-xs-3">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_kk" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_kk" data-max-file-size="2M" data-default-file="<?= base_url($lampiran['lampiran_kk']) ?>" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Ijazah</label>
                                                 <div class="col-xs-3">
-                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ijazah" data-max-file-size="2M" />
+                                                    <input type="file" id="input-file-ktp" class="dropify" name="lampiran_ijazah" data-max-file-size="2M" data-default-file="<?= base_url($lampiran['lampiran_ijazah']) ?>" />
                                                 </div>
                                             </div>
 
@@ -526,12 +528,33 @@
     <script src="<?= base_url('app/') ?>plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#alert").hide();
             $('a').click(function() {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 'slow');
             });
+            $("#alert").hide();
+            $('#kecamatan').html(`<option value="">-- Pilih Kecamatan</option>`);
+            $('#kelurahan').html(`<option value="">-- Pilih Kelurahan/Desa</option>`);
+            $.get(`<?= base_url('api/kabkota/kecamatan/') ?>${$('#kota').val()}`, respon => {
+                var html = `<option value="">-- Pilih Kecamatan</option>`;
+
+                for (let index = 0; index < respon.data.length; index++) {
+                    const element = respon.data[index];
+                    html += `<option value="${element.id}" ${element.id==<?= $data_skck->id_kecamatan ?>? 'selected' : ''}>${element.nama_kecamatan}</option>`;
+                }
+                $('#kecamatan').html(html);
+            }).done(function() {
+                $.get(`<?= base_url('api/kecamatan/desa/') ?>${$('#kecamatan').val()}`, respon => {
+                    var html = `<option value="">-- Pilih Kelurahan/Desa</option>`;
+
+                    for (let index = 0; index < respon.data.length; index++) {
+                        const element = respon.data[index];
+                        html += `<option value="${element.id}" ${element.id==<?= $data_skck->id_desa ?>? 'selected' : ''}>${element.nama_desa}</option>`;
+                    }
+                    $('#kelurahan').html(html);
+                })
+            })
         });
         (function() {
             <?php if ($this->session->flashdata('error')) : ?>
@@ -638,8 +661,6 @@
                     $('#keperluan').removeAttr('disabled')
                     $('#keperluan_ekstra').removeAttr('name')
                 }
-
-
             })
 
             $("#exampleValidator").wizard({
@@ -673,7 +694,7 @@
                 },
                 onFinish: function() {
                     $.ajax({
-                        url: `<?= base_url('pelayanan/insert_skck_offline') ?>`,
+                        url: `<?= base_url('pelayanan/update_skck_online') ?>`,
                         type: "post",
                         data: new FormData(document.getElementById("validation")),
                         processData: false,

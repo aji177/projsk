@@ -7,6 +7,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url('app/') ?>bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Tambahan Disini -->
+    <link href="<?= base_url('app/') ?>plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="<?= base_url('app/') ?>plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- Tambahan Disini -->
     <!-- This is Sidebar menu CSS -->
     <link href="<?= base_url('app/') ?>plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
@@ -51,15 +54,41 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">Cari Data SKCK</h3>
-                            <form role="search" class="form-group">
-                                <div class="input-group">
-                                    <input type="text" placeholder="Search..." class="form-control">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn waves-effect waves-light btn-info"><i class="fa fa-search"></i></button>
-                                    </span>
-                                </div>
-                            </form>
+                            <h3 class="box-title text-center"><?= $title ?></h3>
+                            <div class="table-responsive">
+                                <table id="tablePencarian" class="table table-striped table-bordered" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>TGL. LAPOR</th>
+                                            <th>TGL. CETAK</th>
+                                            <th>NO. SKCK</th>
+                                            <th>NIK</th>
+                                            <th>NAMA</th>
+                                            <th>KEPERLUAN</th>
+                                            <th>JENIS</th>
+                                            <th>AKSI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($data_skck() as $data) : ?>
+                                            <?php extract($data) ?>
+                                            <tr>
+                                                <td><?= strftime('%e %B %Y, %I:%M %p', strtotime($request_at)) ?></td>
+                                                <td><?= $create_at ?></td>
+                                                <td><?= $nomor_skck($nomor)['format'] ?></td>
+                                                <td><?= $no_ktp ?></td>
+                                                <td><?= $nama ?></td>
+                                                <td><?= $keperluan ?></td>
+                                                <td><?= $create_from ?></td>
+                                                <td>
+                                                    <a class="text-success" href="<?= base_url('pelayanan/buat_skck_online?document=' . $id_skck) ?>" <?= $is_print == 1 ? 'onclick="return confirm(`Data ini sudah pernah di cetak. Tetap ingin mengubah isi data ini?`)"' : '' ?>><i class="fa fa-pencil"></i></a>
+                                                    <a class="text-danger" href="<?= base_url('pelayanan/hapus_skck/' . $id_skck) ?>" onclick="return confirm('Anda Yakin Ingin Menghapus Data SKCK Ini? Berkas Lampiran dari data ini akan dihapus secara permanen.')"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,12 +103,39 @@
     <script src="<?= base_url('app/') ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= base_url('app/') ?>bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?= base_url('app/') ?>plugins/bower_components/toast-master/js/jquery.toast.js"></script>
     <!-- Sidebar menu plugin JavaScript -->
     <script src="<?= base_url('app/') ?>plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
     <!--Slimscroll JavaScript For custom scroll-->
     <script src="<?= base_url('app/') ?>js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="<?= base_url('app/') ?>js/waves.js"></script>
+    <script src="<?= base_url('app/') ?>plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            <?php if ($this->session->flashdata('error')) : ?>
+                $.toast({
+                    heading: 'Oopsss',
+                    text: '<?= $this->session->flashdata('error') ?>',
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'error',
+                    hideAfter: 3500
+                });
+            <?php elseif ($this->session->flashdata('success')) : ?>
+                $.toast({
+                    heading: 'Selamat!!',
+                    text: '<?= $this->session->flashdata('success') ?>',
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'success',
+                    hideAfter: 3500
+                });
+            <?php endif; ?>
+
+            $('#tablePencarian').DataTable();
+        })
+    </script>
 </body>
 
 </html>
