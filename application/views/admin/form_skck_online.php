@@ -488,7 +488,6 @@
                                                 </div>
                                             </div>
 
-                                            <button class="btn btn-primary" type="submit">Buat SKCK</button>
                                         </div>
 
                                     </div>
